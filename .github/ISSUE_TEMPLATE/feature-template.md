@@ -1,7 +1,7 @@
 ---
 name: Feature Template
 about: 기능 추가 이슈 템플릿
-title: ''
+title: "[Feature] "
 labels: ''
 assignees: ''
 
@@ -13,6 +13,6 @@ assignees: ''
 
 ## 🔎 작업 상세 내용
 
-- [ ] 
-- [ ] 
-- [ ]
+- [ ] [Task]
+- [ ] [Task]
+- [ ] [Task]
