@@ -27,9 +27,6 @@ public class Stock extends BaseEntity {
     @Column(nullable = false, length = 20)
     private String exchange;
 
-    @Column(nullable = false, length = 20)
-    private LocalDateTime updatedAt;
-
     public void update(String name, String exchange) {
         this.name = name;
         this.exchange = exchange;
