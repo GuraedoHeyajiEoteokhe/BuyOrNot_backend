@@ -1,4 +1,4 @@
-package com.ambiguous.buyornot;
+package com.ambiguous.buyornot.chatting.api.domain;
 
 import com.ambiguous.buyornot.common.BaseEntity;
 import jakarta.persistence.Column;
