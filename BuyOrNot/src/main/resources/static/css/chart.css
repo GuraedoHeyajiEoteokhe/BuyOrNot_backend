@@ -1,0 +1,5 @@
+.page { max-width: 1200px; margin: 24px auto; padding: 0 12px; }
+.toolbar { display:flex; gap: 8px; align-items:center; margin-bottom: 12px; }
+.chart { border: 1px solid #ddd; border-radius: 8px; overflow:hidden; }
+input { width: 120px; padding: 6px; }
+button { padding: 6px 10px; }
