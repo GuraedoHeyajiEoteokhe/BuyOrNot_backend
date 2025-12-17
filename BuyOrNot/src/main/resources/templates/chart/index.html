@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>Chart</title>
+    <link rel="stylesheet" href="/css/chart.css" />
+</head>
+<body>
+<div class="page">
+    <div class="toolbar">
+        <label>stockId</label>
+        <input id="stockId" value="1" />
+        <label>resolution</label>
+        <input id="resolution" value="1" />
+        <button id="loadBtn">Load</button>
+    </div>
+
+    <div id="chart" class="chart"></div>
+</div>
+
+<!-- 라이브러리: static/vendor/... -->
+<script src="/vendor/lightweight-charts/lightweight-charts.standalone.production.js"></script>
+
+<!-- 너가 만든 페이지 코드 -->
+<script src="/js/chart-page.js"></script>
+</body>
+</html>
