@@ -5,7 +5,6 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-
 ### STS ###
 .apt_generated
 .classpath
@@ -38,6 +37,8 @@ out/
 .vscode/
 
 ### MAC OS ###
-.DS_Store
+.DS_Store/
+/**/.DS_Store/
 
+### .yml 파일 ###
 *.yml
