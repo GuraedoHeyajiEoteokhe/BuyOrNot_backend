@@ -4,7 +4,9 @@
 
 ---
 <details> <summary>Commit Convention</summary>
+  
 ## Commit Convention
+
 ### 1. Commit Message Format
 ```
 
@@ -36,6 +38,7 @@ git commit -m "docs(follow): API 문서"
 ---
 
 <details> <summary>Branch Convention</summary>
+  
 ## Branch Convention
 
 ### 1. Branch Naming Rule
@@ -101,6 +104,7 @@ feature/21/hot-post
 ---
 
 <details> <summary>PR  Convention</summary>
+  
 ## Pull Request Convention
 
 ### 1. Pull Request 원칙
