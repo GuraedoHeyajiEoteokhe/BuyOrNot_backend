@@ -1,6 +1,7 @@
 package com.ambiguous.buyornot.chatting.api.domain;
 
 import com.ambiguous.buyornot.common.BaseEntity;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
@@ -14,16 +15,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 @NoArgsConstructor
 public class Chatting extends BaseEntity {
 
-    @Column
-    Long boardID;
+    @Column(name = "post_id")
+    Long postId;
 
-    @Column
+    @Column(name = "user_id")
     Long userID;
 
-    @Column
+    @Column(name = "message")
     String message;
 
-    @Column(nullable = false)
+    @Column(name = "report", nullable = false)
     int reports = 0;
 
     public void changeReports(Chatting chatting){
