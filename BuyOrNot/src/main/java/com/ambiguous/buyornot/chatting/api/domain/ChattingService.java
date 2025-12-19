@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -36,7 +37,8 @@ public class ChattingService {
     }
 
     public void updateReport(Long id) {
-        Chatting chatting = chattingRepository.findChattingById();
+        Chatting chatting = chattingRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("채팅이 존재하지 않습니다."));
         chatting.changeReports(chatting);
     }
 }
