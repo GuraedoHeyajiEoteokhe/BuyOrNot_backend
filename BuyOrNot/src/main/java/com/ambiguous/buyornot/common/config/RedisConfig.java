@@ -3,8 +3,7 @@ package com.ambiguous.buyornot.common.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.ohgiraffers.timedeal.core.messaging.QueueStatusSubscriber;
-import com.ohgiraffers.timedeal.core.support.key.TimedealChannels;
+import com.ambiguous.buyornot.common.support.key.AmbiguousKey;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
@@ -63,18 +62,6 @@ public class RedisConfig {
         return redisTemplate;
     }
 
-    @Bean
-    public RedisMessageListenerContainer redisMessageListener(MessageListenerAdapter listenerAdapter) {
-        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
-        container.setConnectionFactory(redisConnectionFactory());
-        container.addMessageListener(listenerAdapter, new PatternTopic(TimedealChannels.queueStatusPattern()));
-        return container;
-    }
-
-    @Bean
-    public MessageListenerAdapter listenerAdapterQueueMessage(QueueStatusSubscriber subscriber) {
-        return new MessageListenerAdapter(subscriber, "onMessage");
-    }
 
     @Bean
     public RedissonClient redissonClient() {
