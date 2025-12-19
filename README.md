@@ -3,7 +3,7 @@
 > 본 문서는 **buyornot 프로젝트**의 협업 효율을 위한 규칙을 정의함
 
 ---
-
+<details> <summary>Commit Convention</summary>
 ## Commit Convention
 ### 1. Commit Message Format
 ```
@@ -31,9 +31,11 @@ git commit -m "docs(follow): API 문서"
 
 * `domain`은 작업 대상 도메인 또는 기능 단위로 작성
 * description은 **간결하지만 의미가 명확하게** 작성
+</details>
 
 ---
 
+<details> <summary>Branch Convention</summary>
 ## Branch Convention
 
 ### 1. Branch Naming Rule
@@ -58,8 +60,11 @@ feature/21/hot-post
 
 * `develop` 브랜치 직접 작업 금지
 * 모든 기능 개발은 feature 브랜치에서 진행
-
+</details>
+  
 ---
+
+<details> <summary>Issue Convention</summary>
 
 ## Issue Convention
 
@@ -91,9 +96,11 @@ feature/21/hot-post
 
 * 세부 작업은 **체크리스트 형태로 명확히 나열**
 * 세부 작업은 **Issue**로 변경하여 작업 관리
+</details>
 
 ---
 
+<details> <summary>PR  Convention</summary>
 ## Pull Request Convention
 
 ### 1. Pull Request 원칙
@@ -118,8 +125,11 @@ fix(post): 핫게시글 조회 오류 수정
 
 * `develop` 브랜치로 **squash merge**
 * commit, push, PR merge 전 **빌드 및 실행 정상 여부 확인**
+</details>
 
 ---
+
+<details> <summary>Code Convention</summary>
 
 ## Code Convention
 
@@ -173,6 +183,7 @@ GET  /posts/hot
 POST /follows
 DELETE /follows/{id}
 ```
+</details>
 
 ---
 
