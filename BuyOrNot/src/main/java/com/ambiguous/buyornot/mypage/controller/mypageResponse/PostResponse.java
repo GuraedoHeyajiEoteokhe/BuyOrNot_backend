@@ -1,4 +1,8 @@
 package com.ambiguous.buyornot.mypage.controller.mypageResponse;
 
-public interface PostResponse {
+public record PostResponse(
+        Long id,
+        String title,
+        String content
+) {
 }

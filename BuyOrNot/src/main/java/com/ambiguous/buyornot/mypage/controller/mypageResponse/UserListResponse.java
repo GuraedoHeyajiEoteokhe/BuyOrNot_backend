@@ -2,7 +2,7 @@ package com.ambiguous.buyornot.mypage.controller.mypageResponse;
 
 import java.time.LocalDate;
 
-public record UserList(
+public record UserListResponse(
         String userId,
         String userName,
         String nickName,
