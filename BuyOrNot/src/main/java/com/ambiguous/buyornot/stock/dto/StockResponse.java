@@ -1,6 +1,6 @@
 package com.ambiguous.buyornot.stock.dto;
 
-import com.ambiguous.buyornot.stock.entity.Stock;
+import com.ambiguous.buyornot.stock.domain.Stock;
 
 public record StockResponse(
         Long id,

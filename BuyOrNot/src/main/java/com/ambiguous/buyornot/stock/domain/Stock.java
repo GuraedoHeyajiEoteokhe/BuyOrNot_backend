@@ -1,4 +1,4 @@
-package com.ambiguous.buyornot.stock.entity;
+package com.ambiguous.buyornot.stock.domain;
 
 import com.ambiguous.buyornot.common.BaseEntity;
 import jakarta.persistence.*;
@@ -6,9 +6,6 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.cglib.core.Local;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Getter

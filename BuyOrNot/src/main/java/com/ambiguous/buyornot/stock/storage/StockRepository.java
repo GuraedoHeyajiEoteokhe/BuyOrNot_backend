@@ -1,6 +1,6 @@
-package com.ambiguous.buyornot.stock.repository;
+package com.ambiguous.buyornot.stock.storage;
 
-import com.ambiguous.buyornot.stock.entity.Stock;
+import com.ambiguous.buyornot.stock.domain.Stock;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
