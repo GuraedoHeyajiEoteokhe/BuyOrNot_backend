@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "tbl_user")
 @NoArgsConstructor
@@ -29,7 +31,7 @@ public class User extends BaseEntity {
     private String email;
 
     @Column(name = "birth", nullable = false)
-    private String birth;
+    private LocalDate birth;
 
     @Column(name = "gender", nullable = false)
     private String gender;
