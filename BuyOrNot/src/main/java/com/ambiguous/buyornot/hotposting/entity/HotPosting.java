@@ -32,4 +32,16 @@ public class HotPosting extends BaseEntity {
 
     @Column(name = "expire_at", nullable = false)
     private LocalDateTime expireAt; // 핫 만료 시각 (registeredAt + 72h)
+
+    public HotPosting(Long postingId, Long writerId, String symbol,
+                      LocalDateTime writeAt,
+                      LocalDateTime registeredAt,
+                      LocalDateTime expireAt) {
+        this.postingId = postingId;
+        this.writerId = writerId;
+        this.symbol = symbol;
+        this.writeAt = writeAt;
+        this.registeredAt = registeredAt;
+        this.expireAt = expireAt;
+    }
 }
