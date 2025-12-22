@@ -27,8 +27,11 @@ public class Stock extends BaseEntity {
     @Column(nullable = false, length = 20)
     private String exchange;
 
-    public void update(String name, String exchange) {
-        this.name = name;
-        this.exchange = exchange;
+    @Column(nullable = false)
+    private boolean active = true;
+
+    // 주식 종목 상태를 활성화 시킴.
+    public static Stock active(String symbol, String name, String exchange) {
+        return new Stock(symbol, name, exchange, true);
     }
 }
