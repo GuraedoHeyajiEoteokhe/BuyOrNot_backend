@@ -31,12 +31,14 @@ public class JwtTokenProvider {
         secretKey = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    // 로그인 access token 생성 (email)
-    public String createAccessToken(String email) {
+    // 로그인 access token 생성 (id)
+    public String createAccessToken(String userId, String role, Long id) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpiration);
         return Jwts.builder()
-                .subject(email)
+                .subject(userId)
+                .claim("role", role)
+                .claim("id", id)
                 .issuedAt(now)
                 .expiration(expiryDate)
                 .signWith(secretKey)
@@ -44,11 +46,11 @@ public class JwtTokenProvider {
     }
 
     // refresh token
-    public String createRefreshToken(String email) {
+    public String createRefreshToken(String userId) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtRefreshExpiration);
         return Jwts.builder()
-                .subject(email)
+                .subject(userId)
                 .issuedAt(now)
                 .expiration(expiryDate)
                 .signWith(secretKey)
@@ -75,7 +77,7 @@ public class JwtTokenProvider {
 
     }
 
-    public String getEmailFromJWT(String token) {
+    public String getUserIdFromJWT(String token) {
         Claims claims = Jwts.parser()
                 .verifyWith(secretKey)
                 .build()
