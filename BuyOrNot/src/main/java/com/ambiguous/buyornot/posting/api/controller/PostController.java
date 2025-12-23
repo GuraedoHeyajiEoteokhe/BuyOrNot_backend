@@ -2,7 +2,8 @@ package com.ambiguous.buyornot.posting.api.controller;
 
 import com.ambiguous.buyornot.common.support.response.ApiResult;
 import com.ambiguous.buyornot.posting.api.controller.request.PostRequest;
-import com.ambiguous.buyornot.posting.api.controller.response.PostResponse;
+import com.ambiguous.buyornot.posting.api.controller.response.PostDetailResponse;
+import com.ambiguous.buyornot.posting.api.controller.response.PostListResponse;
 import com.ambiguous.buyornot.posting.api.domain.PostService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,7 @@ public class PostController {
 
     @GetMapping("/stocks/{stockId}/posts")
     @Operation(summary = "특정 종목의 게시글 목록 조회 API입니다.")
-    public ApiResult<List<PostResponse>> userViewReport(
+    public ApiResult<List<PostListResponse>> userViewReport(
             @PathVariable Long stockId
     ) {
         return ApiResult.success(postService.getPostsByStockId(stockId));
@@ -40,7 +41,7 @@ public class PostController {
 
     @GetMapping("/posts/user")
     @Operation(summary = "유저별 게시글 목록 조회 API입니다.")
-    public ApiResult<List<PostResponse>> getPosts(
+    public ApiResult<List<PostListResponse>> getPosts(
             @RequestParam Long userId
     ) {
         return ApiResult.success(postService.getPostsByUserId(userId));
@@ -48,9 +49,17 @@ public class PostController {
 
     @GetMapping("/posts/title/{title}")
     @Operation(summary = "제목별 게시글 목록 조회 API입니다.")
-    public ApiResult<List<PostResponse>> getPosts(
+    public ApiResult<List<PostListResponse>> getPosts(
             @RequestParam String title
     ) {
         return ApiResult.success(postService.searchPostsByTitle(title));
+    }
+
+    @GetMapping("/posts/{postId}")
+    @Operation(summary = "게시글 상세 조회 API입니다.")
+    public ApiResult<PostDetailResponse> getPostDetail(
+            @PathVariable Long postId
+    ) {
+        return ApiResult.success(postService.getPostDetail(postId));
     }
 }
