@@ -1,6 +1,6 @@
-package com.ambiguous.buyornot.charts.dto;
+package com.ambiguous.buyornot.charts.api.controller.dto;
 
-import com.ambiguous.buyornot.charts.entity.Candle;
+import com.ambiguous.buyornot.charts.api.domain.Candle;
 import lombok.Builder;
 import lombok.Getter;
 

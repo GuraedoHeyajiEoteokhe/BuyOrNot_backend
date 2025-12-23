@@ -1,4 +1,4 @@
-package com.ambiguous.buyornot.charts.controller;
+package com.ambiguous.buyornot.charts.api.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

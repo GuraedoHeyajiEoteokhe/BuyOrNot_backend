@@ -1,9 +1,9 @@
-package com.ambiguous.buyornot.charts.controller;
+package com.ambiguous.buyornot.charts.api.controller;
 
 
-import com.ambiguous.buyornot.charts.dto.CandleDto;
-import com.ambiguous.buyornot.charts.dto.response.CandleSeriesResponse;
-import com.ambiguous.buyornot.charts.service.ChartService;
+import com.ambiguous.buyornot.charts.api.controller.dto.CandleDto;
+import com.ambiguous.buyornot.charts.api.controller.dto.response.CandleSeriesResponse;
+import com.ambiguous.buyornot.charts.api.domain.ChartService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

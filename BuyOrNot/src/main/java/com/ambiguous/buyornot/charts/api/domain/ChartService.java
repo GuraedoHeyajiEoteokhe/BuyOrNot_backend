@@ -1,16 +1,15 @@
-package com.ambiguous.buyornot.charts.service;
+package com.ambiguous.buyornot.charts.api.domain;
 
-import com.ambiguous.buyornot.charts.dto.CandleDto;
-import com.ambiguous.buyornot.charts.dto.response.CandleSeriesResponse;
-import com.ambiguous.buyornot.charts.entity.Candle;
-import com.ambiguous.buyornot.charts.repository.CandleRepository;
+import com.ambiguous.buyornot.charts.api.controller.dto.CandleDto;
+import com.ambiguous.buyornot.charts.api.controller.dto.response.CandleSeriesResponse;
+import com.ambiguous.buyornot.charts.api.storage.CandleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.List;
 
-import static com.ambiguous.buyornot.charts.dto.CandleDto.toDto;
+import static com.ambiguous.buyornot.charts.api.controller.dto.CandleDto.toDto;
 
 @Service
 public class ChartService {

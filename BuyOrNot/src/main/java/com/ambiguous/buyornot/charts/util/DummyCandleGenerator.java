@@ -1,7 +1,7 @@
 package com.ambiguous.buyornot.charts.util;
 
 
-import com.ambiguous.buyornot.charts.entity.Candle;
+import com.ambiguous.buyornot.charts.api.domain.Candle;
 
 import java.time.Instant;
 import java.util.ArrayList;

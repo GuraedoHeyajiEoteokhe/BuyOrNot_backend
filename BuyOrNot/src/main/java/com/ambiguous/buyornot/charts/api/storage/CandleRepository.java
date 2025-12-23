@@ -1,6 +1,6 @@
-package com.ambiguous.buyornot.charts.repository;
+package com.ambiguous.buyornot.charts.api.storage;
 
-import com.ambiguous.buyornot.charts.entity.Candle;
+import com.ambiguous.buyornot.charts.api.domain.Candle;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.ambiguous.buyornot.charts.entity;
+package com.ambiguous.buyornot.charts.api.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name="tbl_candle")
 @Getter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
 public class Candle {
 
@@ -18,15 +16,15 @@ public class Candle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long candleId;
 
-    // FK
+    // FK를 id로만 매핑
     @Column(nullable=false)
     private Long stockId;
 
-    // lightweight-charts: epoch seconds
+    // lightweight-charts에서는 epoch time 사용함.
     @Column(nullable = false)
     private Long timeSec;
 
-    // 예: "1"(1m), "5"(5m), "D"(day) 등
+    // 15분봉: "15", 1시간봉: "60" => 일단 15분봉이니 "15"
     @Column(nullable = false, length = 10)
     private String resolution;
 
