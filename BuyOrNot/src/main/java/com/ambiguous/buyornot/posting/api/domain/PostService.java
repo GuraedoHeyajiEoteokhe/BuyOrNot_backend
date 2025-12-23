@@ -72,4 +72,18 @@ private final PostRepository postRepository;
 
         post.update(request.title(), request.content());
     }
+
+    @Transactional
+    public void deletePost(Long postId, Long userId) {
+
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+
+        // 작성자 검증
+        if (!post.getUserId().equals(userId)) {
+            throw new IllegalStateException("게시글 삭제 권한이 없습니다.");
+        }
+
+        postRepository.delete(post);
+    }
 }

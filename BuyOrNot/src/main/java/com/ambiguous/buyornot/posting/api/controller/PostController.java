@@ -74,4 +74,14 @@ public class PostController {
         postService.updatePost(postId, userId, request);
         return ApiResult.success();
     }
+
+    @DeleteMapping("/posts/{postId}")
+    @Operation(summary = "게시글 삭제 API입니다.")
+    public ApiResult<?> deletePost(
+            @PathVariable Long postId,
+            @RequestParam Long userId
+    ) {
+        postService.deletePost(postId, userId);
+        return ApiResult.success();
+    }
 }
