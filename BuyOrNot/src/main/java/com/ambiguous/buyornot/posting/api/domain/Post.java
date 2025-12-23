@@ -1,10 +1,11 @@
-package com.ambiguous.buyornot.posting.entity;
+package com.ambiguous.buyornot.posting.api.domain;
 
 import com.ambiguous.buyornot.common.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Lob;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -37,4 +38,13 @@ public class Post extends BaseEntity {
 
     @Column(nullable = false)
     private long dislikeCount = 0;
+
+    @Builder
+    public Post(Long stockId, Long userId, String userNickname, String title, String content) {
+        this.stockId = stockId;
+        this.userId = userId;
+        this.userNickname = userNickname;
+        this.title = title;
+        this.content = content;
+    }
 }
