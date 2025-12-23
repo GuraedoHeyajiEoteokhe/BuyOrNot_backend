@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MyPageController {
-    User user;
     MypageService mypageService;
 
 
@@ -18,18 +17,20 @@ public class MyPageController {
         return ApiResult.success(mypageService.findById(id));
     }
 
-    @PutMapping("/mypage/")
+    @PutMapping("/mypage")
     public ApiResult<?> updateUser(@RequestBody UpdateRequest updateRequest){
         mypageService.updateUser(updateRequest);
         return ApiResult.success();
     }
 
-    @GetMapping("/posting/{id}")
-    public ApiResult<?> getPosting(@PathVariable Long id){
-        mypageService.getposting(id);
+    @GetMapping("/mypage/posting/{userId}")
+    public ApiResult<?> getPosting(@PathVariable Long userid){
+        mypageService.getposting(userid);
         return ApiResult.success();
     }
 
+    @PostMapping("/mypage/")
+    public ApiResult<?> createLike(){
 
-
+    }
 }

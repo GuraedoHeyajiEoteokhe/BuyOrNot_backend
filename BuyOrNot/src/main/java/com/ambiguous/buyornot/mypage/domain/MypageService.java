@@ -1,9 +1,10 @@
 package com.ambiguous.buyornot.mypage.domain;
 
-import com.ambiguous.buyornot.mypage.MypageRepositoty;
+import com.ambiguous.buyornot.mypage.storage.MypageRepositoty;
 import com.ambiguous.buyornot.mypage.controller.mypageRequest.UpdateRequest;
 import com.ambiguous.buyornot.mypage.controller.mypageResponse.UserListResponse;
 import com.ambiguous.buyornot.user.entity.User;
+import org.springframework.transaction.annotation.Transactional;
 
 public class MypageService {
     MypageRepositoty mypageRepositoty;
@@ -20,6 +21,7 @@ public class MypageService {
                 user.getGender());
     }
 
+    @Transactional
     public void updateUser(UpdateRequest updateRequest) {
         User user = mypageRepositoty.findById(updateRequest.id()).orElseThrow(() -> new IllegalArgumentException("채팅이 존재하지 않습니다."));
 
@@ -31,7 +33,7 @@ public class MypageService {
                 user.changePassword(updateRequest.changePassword());
             }
         }
-        if(updateRequest.nickName() != null) {
+        if(updateRequest.nickName() != null && !mypageRepositoty.existsByNickname(updateRequest.nickName())) {
             user.changeNickname(updateRequest.nickName());
         }
         if(updateRequest.userName() != null) {
