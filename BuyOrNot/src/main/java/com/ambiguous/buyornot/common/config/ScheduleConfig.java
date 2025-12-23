@@ -1,0 +1,17 @@
+package com.ambiguous.buyornot.common.config;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
+
+@Configuration
+@EnableScheduling
+public class ScheduleConfig {
+//    @Bean
+//    public ThreadPoolTaskScheduler taskScheduler() {
+//        ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
+//        scheduler.setPoolSize(5); // 동시에 실행 가능한 스케줄러 개수
+//        scheduler.setThreadNamePrefix("scheduler-");
+//        scheduler.initialize();
+//        return scheduler;
+//    }
+}
