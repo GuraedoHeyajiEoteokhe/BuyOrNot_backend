@@ -1,4 +1,4 @@
-package com.ambiguous.buyornot.chatting.api.support.error;
+package com.ambiguous.buyornot.common.support.error;
 
 import org.springframework.boot.logging.LogLevel;
 import org.springframework.http.HttpStatus;

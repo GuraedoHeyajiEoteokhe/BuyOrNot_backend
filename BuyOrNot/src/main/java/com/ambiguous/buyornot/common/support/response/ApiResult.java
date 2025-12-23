@@ -1,7 +1,7 @@
-package com.ambiguous.buyornot.chatting.api.support.response;
+package com.ambiguous.buyornot.common.support.response;
 
-import com.ambiguous.buyornot.chatting.api.support.error.ErrorMessage;
-import com.ambiguous.buyornot.chatting.api.support.error.ErrorType;
+import com.ambiguous.buyornot.common.support.error.ErrorMessage;
+import com.ambiguous.buyornot.common.support.error.ErrorType;
 import lombok.Getter;
 
 @Getter
