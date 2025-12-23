@@ -3,7 +3,7 @@ package com.ambiguous.buyornot.mypage.domain;
 import com.ambiguous.buyornot.mypage.MypageRepositoty;
 import com.ambiguous.buyornot.mypage.controller.mypageRequest.UpdateRequest;
 import com.ambiguous.buyornot.mypage.controller.mypageResponse.UserListResponse;
-import com.ambiguous.buyornot.user.api.domain.User;
+import com.ambiguous.buyornot.user.entity.User;
 
 public class MypageService {
     MypageRepositoty mypageRepositoty;
