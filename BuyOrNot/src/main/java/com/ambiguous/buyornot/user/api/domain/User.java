@@ -1,7 +1,6 @@
-package com.ambiguous.buyornot.user.entity;
+package com.ambiguous.buyornot.user.api.domain;
 
 import com.ambiguous.buyornot.common.BaseEntity;
-import com.ambiguous.buyornot.mypage.controller.mypageRequest.UpdateRequest;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,6 +39,10 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private UserRole role = UserRole.USER;
+
+    public void setEncodedPassword(String encodedPassword) {
+        this.password = encodedPassword;
+    }
 
     public void changeNickname(String nickname) {
         this.nickname = nickname;
