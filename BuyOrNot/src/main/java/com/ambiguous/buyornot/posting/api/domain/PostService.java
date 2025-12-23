@@ -39,4 +39,13 @@ private final PostRepository postRepository;
                 .map(PostResponse::from)
                 .toList();
     }
+
+    @Transactional(readOnly = true)
+    public List<PostResponse> searchPostsByTitle(String keyword) {
+
+        return postRepository.findByTitleContainingIgnoreCaseOrderByCreatedAtDesc(keyword)
+                .stream()
+                .map(PostResponse::from)
+                .toList();
+    }
 }

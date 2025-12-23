@@ -38,11 +38,19 @@ public class PostController {
         return ApiResult.success(postService.getPostsByStockId(stockId));
     }
 
-    @GetMapping("/posts")
+    @GetMapping("/posts/user")
     @Operation(summary = "유저별 게시글 목록 조회 API입니다.")
     public ApiResult<List<PostResponse>> getPosts(
             @RequestParam Long userId
     ) {
         return ApiResult.success(postService.getPostsByUserId(userId));
+    }
+
+    @GetMapping("/posts/title/{title}")
+    @Operation(summary = "제목별 게시글 목록 조회 API입니다.")
+    public ApiResult<List<PostResponse>> getPosts(
+            @RequestParam String title
+    ) {
+        return ApiResult.success(postService.searchPostsByTitle(title));
     }
 }
