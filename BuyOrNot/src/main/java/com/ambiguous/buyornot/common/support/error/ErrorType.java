@@ -5,8 +5,15 @@ import org.springframework.http.HttpStatus;
 
 public enum ErrorType {
 
+    // 기본 에러 발생
     DEFAULT_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, ErrorCode.E500, "An unexpected error has occurred.", LogLevel.ERROR),
-    DEFAULT_ARGUMENT_NOT_VALID(HttpStatus.BAD_REQUEST, ErrorCode.E400, "An unexpected error has occurred.", LogLevel.WARN);
+
+    // 유효하지 않은 인자값 경고
+    DEFAULT_ARGUMENT_NOT_VALID(HttpStatus.BAD_REQUEST, ErrorCode.E400, "An unexpected error has occurred.", LogLevel.WARN),
+    DEFAULT_ARGUMENT_NOT_VALID_ISNULL(HttpStatus.BAD_REQUEST, ErrorCode.E401, "유효하지 않은 값입니다.", LogLevel.ERROR)
+
+
+    ;
 
     private final HttpStatus status;
 
