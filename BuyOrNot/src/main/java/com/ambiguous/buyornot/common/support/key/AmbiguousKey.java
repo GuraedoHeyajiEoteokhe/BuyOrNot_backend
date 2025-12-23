@@ -12,6 +12,6 @@ public class AmbiguousKey {
     private static final String PREFIX = "ambiguous";
 
     public static String hotPostingTop30(Long stockId) {
-        return PREFIX + ":hotposting:top30:{" + stockId + "}";
+        return PREFIX + ":hotposting:top30:" + stockId;
     }
 }
