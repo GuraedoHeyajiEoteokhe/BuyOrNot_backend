@@ -2,19 +2,22 @@ package com.ambiguous.buyornot.posting.api.controller;
 
 import com.ambiguous.buyornot.common.support.response.ApiResult;
 import com.ambiguous.buyornot.posting.api.controller.request.CreateCommentRequest;
+import com.ambiguous.buyornot.posting.api.controller.response.CommentResponse;
 import com.ambiguous.buyornot.posting.api.domain.CommentService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/comments")
 @RequiredArgsConstructor
 public class CommentController {
 
     private final CommentService commentService;
 
-    @PostMapping("/posts/{postId}/comments")
+    @PostMapping("/posts/{postId}")
     @Operation(summary = "댓글/대댓글 작성 API입니다.")
     public ApiResult<?> createComment(
             @PathVariable Long postId,
@@ -24,5 +27,13 @@ public class CommentController {
         String userNickname = "nickName";
         commentService.createComment(postId, userId, userNickname, request);
         return ApiResult.success();
+    }
+
+    @GetMapping("/posts/{postId}")
+    @Operation(summary = "게시글 댓글 목록 조회 API입니다.")
+    public ApiResult<List<CommentResponse>> getComments(
+            @PathVariable Long postId
+    ) {
+        return ApiResult.success(commentService.getCommentsByPostId(postId));
     }
 }
