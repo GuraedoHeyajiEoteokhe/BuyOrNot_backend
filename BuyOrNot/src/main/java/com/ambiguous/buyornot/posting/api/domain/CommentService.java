@@ -1,6 +1,7 @@
 package com.ambiguous.buyornot.posting.api.domain;
 
 import com.ambiguous.buyornot.posting.api.controller.request.CreateCommentRequest;
+import com.ambiguous.buyornot.posting.api.controller.request.UpdateCommentRequest;
 import com.ambiguous.buyornot.posting.api.controller.response.CommentResponse;
 import com.ambiguous.buyornot.posting.storage.CommentRepository;
 import lombok.RequiredArgsConstructor;
@@ -67,5 +68,24 @@ public class CommentService {
         }
 
         return roots;
+    }
+
+    public void updateComment(
+            Long commentId,
+            Long userId,
+            UpdateCommentRequest request
+    ) {
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new IllegalArgumentException("댓글이 존재하지 않습니다."));
+
+        if (comment.isDeleted()) {
+            throw new IllegalStateException("삭제된 댓글은 수정할 수 없습니다.");
+        }
+
+        if (!comment.getUserId().equals(userId)) {
+            throw new IllegalStateException("댓글 수정 권한이 없습니다.");
+        }
+
+        comment.updateContent(request.content());
     }
 }

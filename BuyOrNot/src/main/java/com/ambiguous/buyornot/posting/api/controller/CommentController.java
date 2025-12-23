@@ -2,6 +2,7 @@ package com.ambiguous.buyornot.posting.api.controller;
 
 import com.ambiguous.buyornot.common.support.response.ApiResult;
 import com.ambiguous.buyornot.posting.api.controller.request.CreateCommentRequest;
+import com.ambiguous.buyornot.posting.api.controller.request.UpdateCommentRequest;
 import com.ambiguous.buyornot.posting.api.controller.response.CommentResponse;
 import com.ambiguous.buyornot.posting.api.domain.CommentService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,5 +36,16 @@ public class CommentController {
             @PathVariable Long postId
     ) {
         return ApiResult.success(commentService.getCommentsByPostId(postId));
+    }
+
+    @PutMapping("/{commentId}")
+    @Operation(summary = "댓글 수정 API입니다.")
+    public ApiResult<?> updateComment(
+            @PathVariable Long commentId,
+            @RequestParam Long userId,
+            @RequestBody UpdateCommentRequest request
+    ) {
+        commentService.updateComment(commentId, userId, request);
+        return ApiResult.success();
     }
 }
