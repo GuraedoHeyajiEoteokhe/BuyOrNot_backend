@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/posts")
 @RequiredArgsConstructor
 public class PostController {
 
     private final PostService postService;
 
-    @PostMapping("/stocks/{stockId}/posts")
+    @PostMapping("/stocks/{stockId}")
     @Operation(summary = "게시글 생성 API입니다.")
     public ApiResult<?> createPost(
             @PathVariable Long stockId,
@@ -32,7 +32,7 @@ public class PostController {
         return ApiResult.success();
     }
 
-    @GetMapping("/stocks/{stockId}/posts")
+    @GetMapping("/stocks/{stockId}")
     @Operation(summary = "특정 종목의 게시글 목록 조회 API입니다.")
     public ApiResult<List<PostListResponse>> userViewReport(
             @PathVariable Long stockId
@@ -40,7 +40,7 @@ public class PostController {
         return ApiResult.success(postService.getPostsByStockId(stockId));
     }
 
-    @GetMapping("/posts/user")
+    @GetMapping("/user")
     @Operation(summary = "유저별 게시글 목록 조회 API입니다.")
     public ApiResult<List<PostListResponse>> getPosts(
             @RequestParam Long userId
@@ -48,7 +48,7 @@ public class PostController {
         return ApiResult.success(postService.getPostsByUserId(userId));
     }
 
-    @GetMapping("/posts/title/{title}")
+    @GetMapping("/title/{title}")
     @Operation(summary = "제목별 게시글 목록 조회 API입니다.")
     public ApiResult<List<PostListResponse>> getPosts(
             @RequestParam String title
@@ -56,7 +56,7 @@ public class PostController {
         return ApiResult.success(postService.searchPostsByTitle(title));
     }
 
-    @GetMapping("/posts/{postId}")
+    @GetMapping("/{postId}")
     @Operation(summary = "게시글 상세 조회 API입니다.")
     public ApiResult<PostDetailResponse> getPostDetail(
             @PathVariable Long postId
@@ -64,7 +64,7 @@ public class PostController {
         return ApiResult.success(postService.getPostDetail(postId));
     }
 
-    @PutMapping("/posts/{postId}")
+    @PutMapping("/{postId}")
     @Operation(summary = "게시글 수정 API입니다.")
     public ApiResult<?> updatePost(
             @PathVariable Long postId,
@@ -75,7 +75,7 @@ public class PostController {
         return ApiResult.success();
     }
 
-    @DeleteMapping("/posts/{postId}")
+    @DeleteMapping("/{postId}")
     @Operation(summary = "게시글 삭제 API입니다.")
     public ApiResult<?> deletePost(
             @PathVariable Long postId,
