@@ -1,4 +1,4 @@
-package com.ambiguous.buyornot.stock.dto;
+package com.ambiguous.buyornot.stock.controller.dto.response;
 
 import com.ambiguous.buyornot.stock.domain.Stock;
 
