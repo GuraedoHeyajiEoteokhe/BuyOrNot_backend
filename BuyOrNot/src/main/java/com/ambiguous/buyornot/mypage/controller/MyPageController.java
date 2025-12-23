@@ -1,7 +1,6 @@
 package com.ambiguous.buyornot.mypage.controller;
 
 import com.ambiguous.buyornot.common.support.response.ApiResult;
-import com.ambiguous.buyornot.mypage.controller.mypageRequest.LikeStockRequest;
 import com.ambiguous.buyornot.mypage.controller.mypageRequest.MypageRequest;
 import com.ambiguous.buyornot.mypage.controller.mypageRequest.UpdateRequest;
 import com.ambiguous.buyornot.mypage.controller.mypageResponse.PostResponse;
@@ -18,7 +17,7 @@ public class MyPageController {
     MypageService mypageService;
 
 
-    @GetMapping("/mypage/{id}")
+/*    @GetMapping("/mypage/{id}")
     public ApiResult<UserListResponse> getUser(@PathVariable Long id){
         return ApiResult.success(mypageService.findById(id));
     }
@@ -27,7 +26,7 @@ public class MyPageController {
     public ApiResult<?> updateUser(@RequestBody UpdateRequest updateRequest){
         mypageService.updateUser(updateRequest);
         return ApiResult.success();
-    }
+    }*/
 
     @GetMapping("/mypage/posting/{userId}")
     public ApiResult<PostResponse> getPosting(@PathVariable Long userid){
@@ -55,7 +54,5 @@ public class MyPageController {
     public ApiResult<List<Mypage>> getOwnStock(@PathVariable Long userid){
         return ApiResult.success(mypageService.getOwn(userid));
     }
-
-    @
 
 }

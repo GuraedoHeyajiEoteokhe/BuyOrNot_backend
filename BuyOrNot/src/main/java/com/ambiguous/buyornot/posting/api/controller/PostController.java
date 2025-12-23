@@ -1,6 +1,6 @@
 package com.ambiguous.buyornot.posting.api.controller;
 
-import com.ambiguous.buyornot.chatting.api.support.response.ApiResult;
+import com.ambiguous.buyornot.common.support.response.ApiResult;
 import com.ambiguous.buyornot.posting.api.controller.request.CreatePostDto;
 import com.ambiguous.buyornot.posting.api.domain.PostService;
 import io.swagger.v3.oas.annotations.Operation;
