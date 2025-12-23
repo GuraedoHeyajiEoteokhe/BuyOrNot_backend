@@ -48,4 +48,14 @@ public class CommentController {
         commentService.updateComment(commentId, userId, request);
         return ApiResult.success();
     }
+
+    @DeleteMapping("/{commentId}")
+    @Operation(summary = "댓글 삭제 API입니다.")
+    public ApiResult<?> deleteComment(
+            @PathVariable Long commentId,
+            @RequestParam Long userId
+    ) {
+        commentService.deleteComment(commentId, userId);
+        return ApiResult.success();
+    }
 }

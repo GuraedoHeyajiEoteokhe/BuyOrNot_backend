@@ -88,4 +88,20 @@ public class CommentService {
 
         comment.updateContent(request.content());
     }
+
+    public void deleteComment(Long commentId, Long userId) {
+
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new IllegalArgumentException("댓글이 존재하지 않습니다."));
+
+        if (comment.isDeleted()) {
+            throw new IllegalStateException("이미 삭제된 댓글입니다.");
+        }
+
+        if (!comment.getUserId().equals(userId)) {
+            throw new IllegalStateException("댓글 삭제 권한이 없습니다.");
+        }
+
+        comment.delete();
+    }
 }
