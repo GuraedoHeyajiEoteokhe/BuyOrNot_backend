@@ -57,4 +57,12 @@ public class SwaggerConfig {
                 .build();
     }
 
+    @Bean
+    public GroupedOpenApi allGroup() {
+        return GroupedOpenApi.builder()
+                .group("전체 API")
+                .pathsToMatch("/**")
+                .build();
+    }
+
 }
