@@ -26,8 +26,8 @@ public class PostController {
             @RequestParam Long userId,
             @RequestBody PostRequest dto
     ) {
-        String userNickname = "nickName";
-        postService.createPost(stockId, userId, userNickname, dto);
+        String nickname = "nickName";
+        postService.createPost(stockId, userId, nickname, dto);
 
         return ApiResult.success();
     }
