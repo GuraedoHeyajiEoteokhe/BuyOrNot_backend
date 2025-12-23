@@ -41,9 +41,6 @@ public class User extends BaseEntity {
     @Column(name = "role", nullable = false)
     private UserRole role = UserRole.USER;
 
-    @Column(name = "stock_id")
-    private Long stockId;
-
     public void changeNickname(String nickname) {
         this.nickname = nickname;
     }
