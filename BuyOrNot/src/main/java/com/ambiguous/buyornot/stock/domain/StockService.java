@@ -14,9 +14,9 @@ import java.util.List;
 public class StockService {
     private final StockRepository stockRepository;
 
-    // 주식 종목 
+    // 주식 종목
     public List<StockResponse> getStocksByExchange(String exchange) {
-        List<Stock> stocks = stockRepository.findByExchange(exchange);
+        List<Stock> stocks = stockRepository.findByExchangeOrderBySymbolAsc(exchange);
         return stocks.stream()
                 .map(StockResponse::from)
                 .toList();

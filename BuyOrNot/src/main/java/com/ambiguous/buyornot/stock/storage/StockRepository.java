@@ -11,5 +11,5 @@ public interface StockRepository extends JpaRepository<Stock, Long> {
 
     List<Stock> findByActiveTrueAndExchange(String exchange, Pageable pageable);
 
-    List<Stock> findByExchange(String exchange);
+    List<Stock> findByExchangeOrderBySymbolAsc(String exchange);
 }
