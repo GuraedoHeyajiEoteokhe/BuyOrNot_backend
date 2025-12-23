@@ -58,4 +58,24 @@ public class CommentController {
         commentService.deleteComment(commentId, userId);
         return ApiResult.success();
     }
+
+    @PutMapping("/comments/{commentId}/pin")
+    @Operation(summary = "댓글 고정 API입니다.")
+    public ApiResult<?> pinComment(
+            @PathVariable Long commentId,
+            @RequestParam Long userId
+    ) {
+        commentService.pinComment(commentId, userId);
+        return ApiResult.success();
+    }
+
+    @DeleteMapping("/comments/{commentId}/pin")
+    @Operation(summary = "댓글 고정 해제 API입니다.")
+    public ApiResult<?> unpinComment(
+            @PathVariable Long commentId,
+            @RequestParam Long userId
+    ) {
+        commentService.unpinComment(commentId, userId);
+        return ApiResult.success();
+    }
 }

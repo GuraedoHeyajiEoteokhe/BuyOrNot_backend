@@ -30,6 +30,9 @@ public class Comment extends BaseEntity {
     private String content;
 
     @Column(nullable = false)
+    private boolean pinned = false;
+
+    @Column(nullable = false)
     private boolean deleted = false;
 
     @Builder
@@ -45,7 +48,16 @@ public class Comment extends BaseEntity {
         this.content = content;
     }
 
+    public void pin() {
+        this.pinned = true;
+    }
+
+    public void unpin() {
+        this.pinned = false;
+    }
+
     public void delete() {
         this.deleted = true;
+        this.pinned = false;
     }
 }

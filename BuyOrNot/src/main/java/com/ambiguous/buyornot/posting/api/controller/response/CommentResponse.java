@@ -11,6 +11,7 @@ public record CommentResponse(
         Long userId,
         String userNickname,
         String content,
+        boolean pinned,
         boolean deleted,
         LocalDateTime createdAt,
         List<CommentResponse> children
@@ -21,6 +22,7 @@ public record CommentResponse(
                 comment.getUserId(),
                 comment.getUserNickname(),
                 comment.isDeleted() ? "삭제된 댓글입니다." : comment.getContent(),
+                comment.isPinned(),
                 comment.isDeleted(),
                 comment.getCreatedAt(),
                 new ArrayList<>()
