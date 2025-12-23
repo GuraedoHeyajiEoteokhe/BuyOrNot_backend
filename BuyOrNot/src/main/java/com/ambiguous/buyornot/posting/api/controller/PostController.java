@@ -2,6 +2,7 @@ package com.ambiguous.buyornot.posting.api.controller;
 
 import com.ambiguous.buyornot.common.support.response.ApiResult;
 import com.ambiguous.buyornot.posting.api.controller.request.PostRequest;
+import com.ambiguous.buyornot.posting.api.controller.request.UpdatePostRequest;
 import com.ambiguous.buyornot.posting.api.controller.response.PostDetailResponse;
 import com.ambiguous.buyornot.posting.api.controller.response.PostListResponse;
 import com.ambiguous.buyornot.posting.api.domain.PostService;
@@ -61,5 +62,16 @@ public class PostController {
             @PathVariable Long postId
     ) {
         return ApiResult.success(postService.getPostDetail(postId));
+    }
+
+    @PutMapping("/posts/{postId}")
+    @Operation(summary = "게시글 수정 API입니다.")
+    public ApiResult<?> updatePost(
+            @PathVariable Long postId,
+            @RequestParam Long userId,
+            @RequestBody UpdatePostRequest request
+    ) {
+        postService.updatePost(postId, userId, request);
+        return ApiResult.success();
     }
 }

@@ -1,6 +1,7 @@
 package com.ambiguous.buyornot.posting.api.domain;
 
 import com.ambiguous.buyornot.posting.api.controller.request.PostRequest;
+import com.ambiguous.buyornot.posting.api.controller.request.UpdatePostRequest;
 import com.ambiguous.buyornot.posting.api.controller.response.PostDetailResponse;
 import com.ambiguous.buyornot.posting.api.controller.response.PostListResponse;
 import com.ambiguous.buyornot.posting.storage.PostRepository;
@@ -57,5 +58,18 @@ private final PostRepository postRepository;
         post.increaseViewCount();
 
         return PostDetailResponse.from(post);
+    }
+
+    @Transactional
+    public void updatePost(Long postId, Long userId, UpdatePostRequest request) {
+
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+
+        if (!post.getUserId().equals(userId)) {
+            throw new IllegalStateException("게시글 수정 권한이 없습니다.");
+        }
+
+        post.update(request.title(), request.content());
     }
 }
