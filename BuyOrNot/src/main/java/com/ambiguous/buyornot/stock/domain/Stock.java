@@ -7,11 +7,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Table(name="tbl_stock")
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Stock extends BaseEntity {
+public class Stock extends BaseEntity{
 
     @Column(nullable = false, unique = true, length = 40)
     private String symbol;

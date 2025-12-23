@@ -5,10 +5,12 @@ import com.ambiguous.buyornot.stock.storage.StockRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Order(2)
 @RequiredArgsConstructor
 @Component
 public class StockSeeder implements ApplicationRunner {
@@ -16,7 +18,7 @@ public class StockSeeder implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        if (stockRepository.count() == 0) return;
+        if (stockRepository.count() != 0) return;
 
         stockRepository.saveAll(List.of(
                 Stock.active("AAPL", "Apple Inc.", "NASDAQ"),
