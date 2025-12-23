@@ -1,4 +1,4 @@
-package com.ambiguous.buyornot.user.controller;
+package com.ambiguous.buyornot.user.api.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
