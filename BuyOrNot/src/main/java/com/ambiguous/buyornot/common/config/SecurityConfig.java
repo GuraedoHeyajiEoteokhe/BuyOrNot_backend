@@ -43,8 +43,8 @@ public class SecurityConfig {
                         .authenticationEntryPoint(restAuthenticationEntryPoint)
                         .accessDeniedHandler(restAccessDeniedHandler))
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/regist").permitAll()
-//                        .requestMatchers(HttpMethod.POST, "/user/modify", "/auth/logout").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/regist", "/auth/login").permitAll()
+//                        .requestMatchers(HttpMethod.POST, "/auth/logout").authenticated()
 //                        .anyRequest().authenticated())
                         .anyRequest().permitAll())
                 .addFilterBefore(headerAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
