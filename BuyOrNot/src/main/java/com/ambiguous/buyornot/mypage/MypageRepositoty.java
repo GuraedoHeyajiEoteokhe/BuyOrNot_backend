@@ -1,13 +1,12 @@
 package com.ambiguous.buyornot.mypage;
 
-import com.ambiguous.buyornot.mypage.controller.mypageRequest.UpdateRequest;
 import com.ambiguous.buyornot.user.entity.User;
-import org.hibernate.sql.Update;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
-public interface MypageRepositoty extends JpaRepository {
-    public User findById(Long id);
+public interface MypageRepositoty extends JpaRepository<User, Long> {
+    public Optional<User> findById(Long id);
 }

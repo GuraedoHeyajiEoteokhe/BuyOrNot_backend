@@ -8,8 +8,9 @@ import com.ambiguous.buyornot.user.entity.User;
 public class MypageService {
     MypageRepositoty mypageRepositoty;
 
+
     public UserListResponse findById(Long id){
-        User user = mypageRepositoty.findById(id);
+        User user = mypageRepositoty.findById(id).orElseThrow(() -> new IllegalArgumentException("채팅이 존재하지 않습니다."));
         return new UserListResponse(
                 user.getUserId(),
                 user.getUserName(),
@@ -20,7 +21,7 @@ public class MypageService {
     }
 
     public void updateUser(UpdateRequest updateRequest) {
-        User user = mypageRepositoty.findById(updateRequest.id());
+        User user = mypageRepositoty.findById(updateRequest.id()).orElseThrow(() -> new IllegalArgumentException("채팅이 존재하지 않습니다."));
 
         if(updateRequest.email() != null) {
             user.changeEmail(updateRequest.email());
@@ -38,6 +39,7 @@ public class MypageService {
         }
     }
 
-    public Object getpost(Long id) {
+    public void getposting(Long id) {
+
     }
 }

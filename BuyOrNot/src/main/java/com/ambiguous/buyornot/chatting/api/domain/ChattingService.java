@@ -1,13 +1,11 @@
 package com.ambiguous.buyornot.chatting.api.domain;
 
 import com.ambiguous.buyornot.chatting.api.controller.request.ChattingRequest;
-import com.ambiguous.buyornot.chatting.api.controller.response.ChattingResponse;
-import com.ambiguous.buyornot.chatting.storage.ChattingRepository;
+import com.ambiguous.buyornot.chatting.api.storage.ChattingRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor

@@ -1,4 +1,4 @@
-package com.ambiguous.buyornot.chatting.storage;
+package com.ambiguous.buyornot.chatting.api.storage;
 
 import com.ambiguous.buyornot.chatting.api.domain.Chatting;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,6 +1,6 @@
 package com.ambiguous.buyornot.mypage.controller;
 
-import com.ambiguous.buyornot.chatting.api.support.response.ApiResult;
+import com.ambiguous.buyornot.common.support.response.ApiResult;
 import com.ambiguous.buyornot.mypage.controller.mypageRequest.UpdateRequest;
 import com.ambiguous.buyornot.mypage.domain.MypageService;
 import com.ambiguous.buyornot.mypage.controller.mypageResponse.UserListResponse;
@@ -26,7 +26,10 @@ public class MyPageController {
 
     @GetMapping("/posting/{id}")
     public ApiResult<?> getPosting(@PathVariable Long id){
-        return ApiResult.success(mypageService.getpost(id));
+        mypageService.getposting(id);
+        return ApiResult.success();
     }
+
+
 
 }
