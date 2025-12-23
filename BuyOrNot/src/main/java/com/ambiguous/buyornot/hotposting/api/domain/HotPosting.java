@@ -1,4 +1,4 @@
-package com.ambiguous.buyornot.hotposting.entity;
+package com.ambiguous.buyornot.hotposting.api.domain;
 
 import com.ambiguous.buyornot.common.BaseEntity;
 import jakarta.persistence.Column;
