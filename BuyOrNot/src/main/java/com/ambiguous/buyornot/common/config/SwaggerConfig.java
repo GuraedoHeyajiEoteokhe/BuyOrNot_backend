@@ -13,7 +13,7 @@ public class SwaggerConfig {
     public GroupedOpenApi stockGroup() {
         return GroupedOpenApi.builder()
                 .group("Stock API")
-                .pathsToMatch("/api/v1/stock/**")
+                .pathsToMatch("/api/v1/stocks/**")
                 .build();
     }
 
