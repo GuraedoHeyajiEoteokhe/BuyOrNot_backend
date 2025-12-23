@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/charts")
+@RequestMapping("/api/v1/chart")
 public class ChartController {
 
     private final ChartService chartService;

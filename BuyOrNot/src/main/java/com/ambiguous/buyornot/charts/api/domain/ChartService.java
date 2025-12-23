@@ -39,7 +39,7 @@ public class ChartService {
                                 stockId, res, f, t
                         )
                         .stream()
-                        .map(CandleDto::toDto)
+                        .map(CandleDto::from)
                         .toList();
 
         return CandleSeriesResponse.builder()

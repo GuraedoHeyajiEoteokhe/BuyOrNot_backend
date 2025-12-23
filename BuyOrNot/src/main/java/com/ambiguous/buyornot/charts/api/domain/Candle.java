@@ -29,16 +29,16 @@ public class Candle {
     private String resolution;
 
     @Column(nullable = false)
-    private Double openPrice;
+    private Double open;
 
     @Column(nullable = false)
-    private Double highPrice;
+    private Double high;
 
     @Column(nullable = false)
-    private Double lowPrice;
+    private Double low;
 
     @Column(nullable = false)
-    private Double closePrice;
+    private Double close;
 
     @Column(nullable = false)
     private Double volume;
@@ -47,20 +47,20 @@ public class Candle {
             Long stockId,
             Long timeSec,
             String resolution,
-            Double openPrice,
-            Double highPrice,
-            Double lowPrice,
-            Double closePrice,
+            Double open,
+            Double high,
+            Double low,
+            Double close,
             Double volume
     ) {
         Candle candle = new Candle();
         candle.stockId = stockId;
         candle.timeSec = timeSec;
         candle.resolution = resolution;
-        candle.openPrice = openPrice;
-        candle.highPrice = highPrice;
-        candle.lowPrice = lowPrice;
-        candle.closePrice = closePrice;
+        candle.open = open;
+        candle.high = high;
+        candle.low = low;
+        candle.close = close;
         candle.volume = volume;
         return candle;
     }
