@@ -30,4 +30,13 @@ private final PostRepository postRepository;
                 .map(PostResponse::from)
                 .toList();
     }
+
+    @Transactional(readOnly = true)
+    public List<PostResponse> getPostsByUserId(Long userId) {
+
+        return postRepository.findByUserIdOrderByCreatedAtDesc(userId)
+                .stream()
+                .map(PostResponse::from)
+                .toList();
+    }
 }

@@ -8,4 +8,5 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post,Integer> {
 
     List<Post> findByStockIdOrderByCreatedAtDesc(Long stockId);
+    List<Post> findByUserIdOrderByCreatedAtDesc(Long userId);
 }
