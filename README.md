@@ -3,8 +3,10 @@
 > 본 문서는 **buyornot 프로젝트**의 협업 효율을 위한 규칙을 정의함
 
 ---
-
+<details> <summary>Commit Convention</summary>
+  
 ## Commit Convention
+
 ### 1. Commit Message Format
 ```
 
@@ -31,9 +33,12 @@ git commit -m "docs(follow): API 문서"
 
 * `domain`은 작업 대상 도메인 또는 기능 단위로 작성
 * description은 **간결하지만 의미가 명확하게** 작성
+</details>
 
 ---
 
+<details> <summary>Branch Convention</summary>
+  
 ## Branch Convention
 
 ### 1. Branch Naming Rule
@@ -58,42 +63,58 @@ feature/21/hot-post
 
 * `develop` 브랜치 직접 작업 금지
 * 모든 기능 개발은 feature 브랜치에서 진행
-
+</details>
+  
 ---
+
+<details> <summary>Issue Convention</summary>
 
 ## Issue Convention
 
-### 1. Issue 작성 방식
+### 1. EPIC Issue 작성 방식
 
-* **큰 기능 단위 Issue를 먼저 생성**
-* 해당 Issue 하위에 **세부 작업을 나열하는 방식**으로 관리
+* **도메인 단위 EPIC 먼저 생성**
+* 해당 Issue 하위에 **기능을 나열하는 방식**으로 관리한다.
 
-### 2. Issue Title 규칙
+### 2. EPIC Issue Title 규칙
 
 ```
-[Feature] 기능명
+[EPIC] 도메인 명
 ```
 
 ### 3. 예시
 
 ```
-[Feature] 핫게시글 - 모놀리식
+[EPIC] HotPost - Domain
+```
+
+### 4. Issue 작성
+```
+[FEAT] 기능 및 작업 명
+```
+
+### 5. 하위 Issue 작성 예시
+```
+- [ ] #31 [FEAT] HotPost - Scheduler
+- [ ] #32 [FEAT] HotPost - CRUD
 ```
 
 ### 4. Issue Description 작성 예시
 
 ```
-- [ ] [task] 핫게시글 엔티티 생성
-- [ ] [task] 핫게시글 등록 기능
-- [ ] [task] 핫게시글 조회 기능
-- [ ] [task] 핫게시글 정렬 기준 정의
+- [ ] 핫게시글 엔티티 생성
+- [ ] 핫게시글 등록 기능
+- [ ] 핫게시글 조회 기능
+- [ ] 핫게시글 정렬 기준 정의
 ```
 
 * 세부 작업은 **체크리스트 형태로 명확히 나열**
-* 세부 작업은 **Issue**로 변경하여 작업 관리
+</details>
 
 ---
 
+<details> <summary>PR  Convention</summary>
+  
 ## Pull Request Convention
 
 ### 1. Pull Request 원칙
@@ -118,8 +139,11 @@ fix(post): 핫게시글 조회 오류 수정
 
 * `develop` 브랜치로 **squash merge**
 * commit, push, PR merge 전 **빌드 및 실행 정상 여부 확인**
+</details>
 
 ---
+
+<details> <summary>Code Convention</summary>
 
 ## Code Convention
 
@@ -173,6 +197,7 @@ GET  /posts/hot
 POST /follows
 DELETE /follows/{id}
 ```
+</details>
 
 ---
 

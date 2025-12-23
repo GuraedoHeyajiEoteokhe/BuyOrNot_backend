@@ -1,6 +1,7 @@
 package com.ambiguous.buyornot.user.entity;
 
 import com.ambiguous.buyornot.common.BaseEntity;
+import com.ambiguous.buyornot.mypage.controller.mypageRequest.UpdateRequest;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,5 +40,18 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private UserRole role = UserRole.USER;
+
+    public void changeNickname(String nickname) {
+        this.nickname = nickname;
+    }
+    public void changeEmail(String email) {
+        this.email = email;
+    }
+    public void changeUsername(String username) {
+        this.userName = username;
+    }
+    public void changePassword(String password) {
+        this.password = password;
+    }
 
 }
