@@ -3,7 +3,7 @@ package com.ambiguous.buyornot.posting.api.controller.request;
 import com.ambiguous.buyornot.posting.api.domain.Post;
 import jakarta.validation.constraints.NotBlank;
 
-public record CreatePostDto(
+public record PostRequest(
         @NotBlank String title,
         @NotBlank String content
 ) {
