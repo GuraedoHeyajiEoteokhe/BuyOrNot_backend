@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class MypageService {
-    MypageRepositoty mypageRepositoty;
+    MypageRepositoty mypageRepository;
     PostRepository postRepository;
 
 //    UserRepository userRepository;
@@ -62,16 +62,34 @@ public UserListResponse findById(Long id){
 
     public void createMypage(MypageRequest mypageRequest) {
         Mypage mypage = new Mypage(mypageRequest.userId(),mypageRequest.likeStock(),mypageRequest.OwnStock());
-        mypageRepositoty.save(mypage);
+        mypageRepository.save(mypage);
     }
 
 
     public void changeStock(MypageRequest mypageRequest) {
-        Mypage mypage = mypageRepositoty.findByUserId(mypageRequest.userId());
-        if(mypage.likeStock != mypageRequest.likeStock()) {
-            Mypage mypage1 = new  Mypage(mypageRequest.userId(),mypageRequest.likeStock(),mypageRequest.OwnStock());
-            mypageRepositoty.save(mypage1);
+        Mypage mypage = mypageRepository.findByUserId(mypageRequest.userId());
+        if(!mypageRequest.likeStock().isEmpty() && !mypageRequest.OwnStock().isEmpty()) {
+            throw new IllegalArgumentException("하나만 입력해 주세요");
         }
-
+        if(mypage.likeStock != mypageRequest.likeStock()) {
+            Mypage mypage1 = new  Mypage(mypageRequest.userId(),mypageRequest.likeStock(),null);
+            mypageRepository.save(mypage1);
+        }
+        if(mypage.ownStock != mypageRequest.OwnStock()) {
+            Mypage mypage1 = new Mypage(mypageRequest.userId(),null,mypageRequest.OwnStock());
+            mypageRepository.save(mypage1);
+        }
     }
+
+    public List<Mypage> getLike(Long userid) {
+        List<Mypage> like = mypageRepository.findLikeStockById(userid);
+        return like;
+    }
+
+    public List<Mypage> getOwn(Long userid) {
+        List<Mypage> own = mypageRepository.findOwnStockById(userid);
+        return own;
+    }
+
+
 }

@@ -5,10 +5,13 @@ import com.ambiguous.buyornot.mypage.controller.mypageRequest.LikeStockRequest;
 import com.ambiguous.buyornot.mypage.controller.mypageRequest.MypageRequest;
 import com.ambiguous.buyornot.mypage.controller.mypageRequest.UpdateRequest;
 import com.ambiguous.buyornot.mypage.controller.mypageResponse.PostResponse;
+import com.ambiguous.buyornot.mypage.domain.Mypage;
 import com.ambiguous.buyornot.mypage.domain.MypageService;
 import com.ambiguous.buyornot.mypage.controller.mypageResponse.UserListResponse;
 import com.ambiguous.buyornot.user.entity.User;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class MyPageController {
@@ -42,5 +45,17 @@ public class MyPageController {
         mypageService.changeStock(mypageRequest);
         return ApiResult.success();
     }
+
+    @GetMapping("/mypage/likestock/{userid}")
+    public ApiResult<List<Mypage>> getLikestock(@PathVariable Long userid){
+        return ApiResult.success(mypageService.getLike(userid));
+    }
+
+    @GetMapping("/mypage/ownstock/{userid}")
+    public ApiResult<List<Mypage>> getOwnStock(@PathVariable Long userid){
+        return ApiResult.success(mypageService.getOwn(userid));
+    }
+
+    @
 
 }
