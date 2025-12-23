@@ -1,16 +1,16 @@
 package com.ambiguous.buyornot.hotposting.api.domain;
 
+import com.ambiguous.buyornot.hotposting.api.controller.redis.HotPostingRedisStore;
 import com.ambiguous.buyornot.hotposting.api.controller.request.HotPostingCreateRequest;
 import com.ambiguous.buyornot.hotposting.api.storage.HotPostingRepository;
 import com.ambiguous.buyornot.posting.api.domain.Post;
-import com.ambiguous.buyornot.posting.storage.PostRepository;
 import com.ambiguous.buyornot.stock.storage.StockRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +18,7 @@ public class HotPostingService {
 
     private HotPostingRepository hotPostingRepository;
     private StockRepository stockRepository;
+    private HotPostingRedisStore hotPostingRedisStore;
 
     @Transactional
     public void register(HotPostingCreateRequest request){
@@ -40,12 +41,17 @@ public class HotPostingService {
     // 자동 등록 서비스
     @Transactional
     public void registerFromPost(Post post){
-        if(hotPostingRepository.existsByPostingId(post.getId())) return;
+        Long postId = post.getId();
+        if(hotPostingRepository.existsByPostingId(postId)) return;
 
         LocalDateTime now = LocalDateTime.now();
-        String symbol = stockRepository.findSymbolById(post.getStockId());
+        Long stockId = post.getStockId();
+        // stockId가 잘못되었을 경우
+        String symbol = Optional.ofNullable(stockRepository.findSymbolById(stockId))
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 종목: " + stockId));
+
         HotPosting hotPosting = new HotPosting(
-                post.getId(),
+                postId,
                 post.getUserId(),
                 symbol,
                 post.getCreatedAt(),
@@ -54,5 +60,8 @@ public class HotPostingService {
 
         );
         hotPostingRepository.save(hotPosting);
+
+        // DB 저장 성공 후 Redis 반영
+        hotPostingRedisStore.add(postId,stockId,hotPosting.getRegisteredAt());
     }
 }
