@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="tbl_candle")
+@Table(name = "candle")
 @Getter
 @Builder
 @AllArgsConstructor
@@ -18,28 +18,27 @@ public class Candle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long candleId;
 
-    // FK
-    @Column(nullable=false)
+    @Column(name = "stock_id", nullable = false)
     private Long stockId;
 
     // lightweight-charts: epoch seconds
-    @Column(nullable = false)
-    private Long timeSec;
+    @Column(name = "time_epoch_sec", nullable = false)
+    private Long timeEpochSec;
 
     // 예: "1"(1m), "5"(5m), "D"(day) 등
     @Column(nullable = false, length = 10)
     private String resolution;
 
-    @Column(nullable = false)
+    @Column(name = "open_price", nullable = false)
     private Double openPrice;
 
-    @Column(nullable = false)
+    @Column(name = "high_price", nullable = false)
     private Double highPrice;
 
-    @Column(nullable = false)
+    @Column(name = "low_price", nullable = false)
     private Double lowPrice;
 
-    @Column(nullable = false)
+    @Column(name = "close_price", nullable = false)
     private Double closePrice;
 
     @Column(nullable = false)
@@ -47,7 +46,7 @@ public class Candle {
 
     public static Candle create(
             Long stockId,
-            Long timeSec,
+            Long timeEpochSec,
             String resolution,
             Double openPrice,
             Double highPrice,
@@ -57,7 +56,7 @@ public class Candle {
     ) {
         Candle candle = new Candle();
         candle.stockId = stockId;
-        candle.timeSec = timeSec;
+        candle.timeEpochSec = timeEpochSec;
         candle.resolution = resolution;
         candle.openPrice = openPrice;
         candle.highPrice = highPrice;

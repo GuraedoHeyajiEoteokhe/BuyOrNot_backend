@@ -36,7 +36,7 @@ public class ChartService {
 
         List<CandleDto> candles =
                 candleRepository
-                        .findByStockIdAndResolutionAndTimeSecBetweenOrderByTimeSecAsc(
+                        .findByStockIdAndResolutionAndTimeEpochSecBetweenOrderByTimeEpochSecAsc(
                                 stockId, res, f, t
                         )
                         .stream()
@@ -51,24 +51,14 @@ public class ChartService {
                                 .candles(candles).build();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public CandleDto latestBar(Long stockId, String resolution) {
         String res = normalizeResolution(resolution);
-        long now = Instant.now().getEpochSecond();
 
-        double open = 100 + Math.random() * 10;
-        double close = open + (Math.random() - 0.5);
-        double high = Math.max(open, close);
-        double low = Math.min(open, close);
-        double volume = 50 + Math.random() * 200;
+        Candle candle = candleRepository
+                .findTopByStockIdAndResolutionOrderByTimeEpochSecDesc(stockId, res)
+                .orElseThrow(() -> new IllegalArgumentException("해당 종목의 캔들 데이터가 존재하지 않습니다."));
 
-        // ChartService.java
-        Candle candle = Candle.create(
-                stockId, now, res,
-                open, high, low, close, volume
-        );
-
-        candleRepository.save(candle);
         return toDto(candle);
     }
 

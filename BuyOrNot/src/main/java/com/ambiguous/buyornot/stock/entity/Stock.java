@@ -6,9 +6,6 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.cglib.core.Local;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -26,6 +23,9 @@ public class Stock extends BaseEntity {
     // KRX, NASDAK
     @Column(nullable = false, length = 20)
     private String exchange;
+
+    @Column(nullable = false)
+    private boolean active = true;
 
     public void update(String name, String exchange) {
         this.name = name;

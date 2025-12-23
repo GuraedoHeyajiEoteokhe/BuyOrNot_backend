@@ -16,7 +16,7 @@ public class CandleDto {
 
     public static CandleDto toDto(Candle candle) {
         return CandleDto.builder()
-                .time(candle.getTimeSec())
+                .time(candle.getTimeEpochSec())
                 .open(candle.getOpenPrice())
                 .high(candle.getHighPrice())
                 .low(candle.getLowPrice())
