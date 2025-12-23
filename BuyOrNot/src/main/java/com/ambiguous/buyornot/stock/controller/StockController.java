@@ -11,10 +11,7 @@ import com.ambiguous.buyornot.stock.controller.dto.response.StockResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,5 +35,12 @@ public class StockController {
         }
         return ApiResult.success(stockService.getStocksByExchange(exchange));
 
+    }
+
+    @Operation(summary="종목 단건 조회",
+    description = "stockId로 종목 메타정보(symbol|name|exchange)를 조회한다.")
+    @GetMapping("/{id}")
+    public ApiResult<StockResponse> getStockById(@PathVariable Long id) {
+        return ApiResult.success(stockService.getStockByStockId(id));
     }
 }
