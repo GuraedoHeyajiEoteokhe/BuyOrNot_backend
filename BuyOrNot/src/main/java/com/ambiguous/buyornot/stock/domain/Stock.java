@@ -12,11 +12,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Stock {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Stock extends BaseEntity{
 
     @Column(nullable = false, unique = true, length = 40)
     private String symbol;
@@ -34,6 +30,6 @@ public class Stock {
 
     // 주식 종목 상태를 활성화 시킴.
     public static Stock active(String symbol, String name, String exchange) {
-        return new Stock(null, symbol, name, exchange, true);
+        return new Stock(symbol, name, exchange, true);
     }
 }

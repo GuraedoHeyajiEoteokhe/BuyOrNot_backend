@@ -18,7 +18,7 @@ public class StockSeeder implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        if (stockRepository.count() == 0) return;
+        if (stockRepository.count() != 0) return;
 
         stockRepository.saveAll(List.of(
                 Stock.active("AAPL", "Apple Inc.", "NASDAQ"),
