@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -35,14 +34,16 @@ public class HotPostingService {
         }
         LocalDateTime now = LocalDateTime.now();
         Long stockId = post.getStockId();
-        // stockId가 잘못되었을 경우
-        String symbol = Optional.ofNullable(stockRepository.findSymbolById(stockId))
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 종목: " + stockId));
+
+        // 존재하는 종목인지 검증
+        if(stockRepository.existsById(stockId)){
+            throw new IllegalStateException("존재하지 않는 종목입니다.");
+        }
 
         HotPosting hotPosting = new HotPosting(
                 postId,
                 post.getUserId(),
-                symbol,
+                stockId,
                 post.getCreatedAt(),
                 now,
                 post.getCreatedAt().plusHours(72)
@@ -65,13 +66,15 @@ public class HotPostingService {
         LocalDateTime now = LocalDateTime.now();
         Long stockId = post.getStockId();
         // stockId가 잘못되었을 경우
-        String symbol = Optional.ofNullable(stockRepository.findSymbolById(stockId))
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 종목: " + stockId));
+        // 존재하는 종목인지 검증
+        if(stockRepository.existsById(stockId)){
+            throw new IllegalStateException("존재하지 않는 종목입니다.");
+        }
 
         HotPosting hotPosting = new HotPosting(
                 postId,
                 post.getUserId(),
-                symbol,
+                stockId,
                 post.getCreatedAt(),
                 now,
                 post.getCreatedAt().plusHours(72)
