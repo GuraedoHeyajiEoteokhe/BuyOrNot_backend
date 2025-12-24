@@ -1,6 +1,7 @@
 package com.ambiguous.buyornot.posting.api.domain;
 
 import com.ambiguous.buyornot.posting.api.controller.request.PostRequest;
+import com.ambiguous.buyornot.posting.api.controller.request.PostSearchRequest;
 import com.ambiguous.buyornot.posting.api.controller.request.UpdatePostRequest;
 import com.ambiguous.buyornot.posting.api.controller.response.PostDetailResponse;
 import com.ambiguous.buyornot.posting.api.controller.response.PostListResponse;
@@ -31,6 +32,20 @@ private final PostRepository postRepository;
                 .stream()
                 .map(PostListResponse::from)
                 .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostListResponse> searchPosts(PostSearchRequest request) {
+
+        if (request.getUserId() != null) {
+            return getPostsByUserId(request.getUserId());
+        }
+
+        if (request.getTitle() != null) {
+            return searchPostsByTitle(request.getTitle());
+        }
+
+        return List.of();
     }
 
     @Transactional(readOnly = true)
