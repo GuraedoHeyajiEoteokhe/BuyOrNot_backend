@@ -7,7 +7,7 @@ import com.ambiguous.buyornot.mypage.controller.mypageResponse.PostResponse;
 import com.ambiguous.buyornot.mypage.domain.Mypage;
 import com.ambiguous.buyornot.mypage.domain.MypageService;
 import com.ambiguous.buyornot.mypage.controller.mypageResponse.UserListResponse;
-import com.ambiguous.buyornot.user.entity.User;
+import com.ambiguous.buyornot.user.api.domain.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

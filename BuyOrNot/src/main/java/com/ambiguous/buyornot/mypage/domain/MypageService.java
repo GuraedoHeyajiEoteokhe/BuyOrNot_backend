@@ -7,7 +7,7 @@ import com.ambiguous.buyornot.mypage.controller.mypageRequest.UpdateRequest;
 import com.ambiguous.buyornot.mypage.controller.mypageResponse.UserListResponse;
 import com.ambiguous.buyornot.posting.api.domain.Post;
 import com.ambiguous.buyornot.posting.storage.PostRepository;
-import com.ambiguous.buyornot.user.entity.User;
+import com.ambiguous.buyornot.user.api.domain.User;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
