@@ -18,8 +18,8 @@ public class CustomUserDetailService implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(username).orElseThrow(() -> new BadCredentialsException("Invalid username or password"));
+    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(userId).orElseThrow(() -> new BadCredentialsException("Invalid username or password"));
 
         return new org.springframework.security.core.userdetails.User(
                 user.getUserId(),
