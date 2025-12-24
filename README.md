@@ -71,34 +71,44 @@ feature/21/hot-post
 
 ## Issue Convention
 
-### 1. Issue 작성 방식
+### 1. EPIC Issue 작성 방식
 
-* **큰 기능 단위 Issue를 먼저 생성**
-* 해당 Issue 하위에 **세부 작업을 나열하는 방식**으로 관리
+* **도메인 단위 EPIC 먼저 생성**
+* 해당 Issue 하위에 **기능을 나열하는 방식**으로 관리한다.
 
-### 2. Issue Title 규칙
+### 2. EPIC Issue Title 규칙
 
 ```
-[Feature] 기능명
+[EPIC] 도메인 명
 ```
 
 ### 3. 예시
 
 ```
-[Feature] 핫게시글 - 모놀리식
+[EPIC] HotPost - Domain
+```
+
+### 4. Issue 작성
+```
+[FEAT] 기능 및 작업 명
+```
+
+### 5. 하위 Issue 작성 예시
+```
+- [ ] #31 [FEAT] HotPost - Scheduler
+- [ ] #32 [FEAT] HotPost - CRUD
 ```
 
 ### 4. Issue Description 작성 예시
 
 ```
-- [ ] [task] 핫게시글 엔티티 생성
-- [ ] [task] 핫게시글 등록 기능
-- [ ] [task] 핫게시글 조회 기능
-- [ ] [task] 핫게시글 정렬 기준 정의
+- [ ] 핫게시글 엔티티 생성
+- [ ] 핫게시글 등록 기능
+- [ ] 핫게시글 조회 기능
+- [ ] 핫게시글 정렬 기준 정의
 ```
 
 * 세부 작업은 **체크리스트 형태로 명확히 나열**
-* 세부 작업은 **Issue**로 변경하여 작업 관리
 </details>
 
 ---
