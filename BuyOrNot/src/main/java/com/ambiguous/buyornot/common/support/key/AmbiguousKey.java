@@ -19,6 +19,10 @@ public class AmbiguousKey {
         return Long.parseLong(user.split(":")[1]);
     }
 
+    public static String hotPostingTop30(Long stockId) {
+        return PREFIX + ":hotposting:top30:" + stockId;
+    }
+
     public static String chatting(Long ambiguousId) {
         return PREFIX + ":" + ambiguousId + ":chatting";
     }
