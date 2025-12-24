@@ -19,9 +19,7 @@ public class PostService {
 
 private final PostRepository postRepository;
 
-    public void createPost(Long stockId, Long userId, String nickname, PostRequest dto) {
-
-        Post post = dto.toEntity(stockId, userId, nickname);
+    public void save(Post post) {
         postRepository.save(post);
     }
 
