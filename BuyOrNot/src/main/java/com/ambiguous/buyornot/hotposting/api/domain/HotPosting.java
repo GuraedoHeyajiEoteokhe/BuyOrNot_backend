@@ -18,9 +18,6 @@ public class HotPosting extends BaseEntity {
     @Column(name = "posting_id", nullable = false, unique = true)
     private Long postingId; // 게시글 아이디 - 게시글 테이블
 
-    @Column(name = "writer_id", nullable = false)
-    private Long writerId;  // 게시글 작성자 아이디 - 게시글 테이블(사용자 테이블)
-
     @Column(name = "stock_id", nullable = false, length = 20)
     private Long stockId;  // 종목 종류
 
@@ -41,12 +38,11 @@ public class HotPosting extends BaseEntity {
     @Column(name = "redis_synced_at")
     private LocalDateTime redisSyncedAt;
 
-    public HotPosting(Long postingId, Long writerId, Long stockId,
+    public HotPosting(Long postingId,Long stockId,
                       LocalDateTime writeAt,
                       LocalDateTime registeredAt,
                       LocalDateTime expireAt) {
         this.postingId = postingId;
-        this.writerId = writerId;
         this.stockId = stockId;
         this.writeAt = writeAt;
         this.registeredAt = registeredAt;

@@ -42,7 +42,6 @@ public class HotPostingService {
 
         HotPosting hotPosting = new HotPosting(
                 postId,
-                post.getUserId(),
                 stockId,
                 post.getCreatedAt(),
                 now,
@@ -73,7 +72,6 @@ public class HotPostingService {
 
         HotPosting hotPosting = new HotPosting(
                 postId,
-                post.getUserId(),
                 stockId,
                 post.getCreatedAt(),
                 now,
@@ -91,4 +89,33 @@ public class HotPostingService {
         // ✅ Redis 반영 성공 기록
         hotPosting.markRedisSynced(registeredAt);
     }
+
+    // posting delete 서비스에서 호출이 필요함 (hard delete)
+    // 사용자가 posting을 삭제했을 경우 hotposting에 등록된 게시글이면 redis와 hotposting DB에서 삭제한다.
+    // 포스팅을 지우기전 호출이 필요하다.
+    @Transactional
+    public void removeByPostDeleted(Long postId){
+        HotPosting hp = hotPostingRepository.findByPostingId(postId).orElse(null);
+        if (hp == null) return;
+
+        hotPostingRedisStore.remove(hp.getPostingId(), hp.getStockId());
+        hotPostingRepository.delete(hp);
+    }
+
+    // 관리자가 삭제 (hard delete)
+    @Transactional
+    public void removeByAdmin(HotPostingPassiveRequest request){
+        Long postId = request.postingId();
+
+        // 존재하는 게시글인지 검증
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("Posting with id " + postId + " does not exist"));
+
+        HotPosting hp = hotPostingRepository.findByPostingId(postId)
+                .orElseThrow(() -> new IllegalArgumentException("Posting with id " + postId + " does not exist"));
+
+        hotPostingRedisStore.remove(hp.getPostingId(), hp.getStockId());
+        hotPostingRepository.delete(hp);
+    }
+
 }

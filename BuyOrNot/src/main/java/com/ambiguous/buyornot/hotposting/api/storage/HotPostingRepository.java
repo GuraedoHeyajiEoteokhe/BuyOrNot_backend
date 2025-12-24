@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface HotPostingRepository extends JpaRepository<HotPosting, Long> {
 
@@ -15,4 +16,5 @@ public interface HotPostingRepository extends JpaRepository<HotPosting, Long> {
     List<HotPosting> findByExpireAtBeforeAndRedisSyncedTrue(LocalDateTime now);
 
 
+    Optional<HotPosting> findByPostingId(Long postId);
 }
