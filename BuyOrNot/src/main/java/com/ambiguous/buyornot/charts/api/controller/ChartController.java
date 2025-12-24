@@ -1,7 +1,7 @@
 package com.ambiguous.buyornot.charts.api.controller;
 
 
-import com.ambiguous.buyornot.charts.api.controller.dto.CandleDto;
+import com.ambiguous.buyornot.charts.api.controller.dto.CandleSingleResponse;
 import com.ambiguous.buyornot.charts.api.controller.dto.response.CandleSeriesResponse;
 import com.ambiguous.buyornot.charts.api.domain.ChartService;
 import com.ambiguous.buyornot.common.support.response.ApiResult;
@@ -37,4 +37,18 @@ public class ChartController {
         return ApiResult.success(chartService.getLatestCandles(stockId, resolution, count));
     }
 
+
+    @Operation(
+            summary = "캔들 1개 조회(최신 바)",
+            description = """
+                    특정 종목(stockId)의 최신 캔들 1개를 조회
+                    """
+    )
+    @GetMapping("/latest")
+    public ApiResult<CandleSingleResponse> getLatest(
+            @RequestParam Long stockId,
+            @RequestParam(defaultValue = "15") String resolution
+    ) {
+        return ApiResult.success(chartService.getLatestBar(stockId, resolution));
+    }
 }

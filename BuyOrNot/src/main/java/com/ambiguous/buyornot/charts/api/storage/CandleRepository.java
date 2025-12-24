@@ -9,4 +9,6 @@ import java.util.List;
 public interface CandleRepository extends JpaRepository<Candle, Long> {
 
     List<Candle> findLatestCandle(Long stockId, String resolution, PageRequest of);
+
+    Candle findTopByStockIdAndResolutionOrderByTimeSecDesc(Long stockId, String resolution);
 }
