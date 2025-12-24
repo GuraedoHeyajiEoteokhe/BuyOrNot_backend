@@ -3,22 +3,22 @@ package com.ambiguous.buyornot.charts.api.domain;
 import com.ambiguous.buyornot.charts.api.controller.dto.CandleDto;
 import com.ambiguous.buyornot.charts.api.controller.dto.response.CandleSeriesResponse;
 import com.ambiguous.buyornot.charts.api.storage.CandleRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.Comparator;
 import java.util.List;
 
 import static com.ambiguous.buyornot.charts.api.controller.dto.CandleDto.toDto;
 
 @Service
+@AllArgsConstructor
 public class ChartService {
 
     private final CandleRepository candleRepository;
-
-    public ChartService(CandleRepository candleRepository) {
-        this.candleRepository = candleRepository;
-    }
 
     @Transactional(readOnly = true)
     public CandleSeriesResponse candles(
@@ -74,5 +74,18 @@ public class ChartService {
 
     private String normalizeResolution(String r) {
         return (r == null || r.isBlank()) ? "1" : r.trim();
+    }
+
+    public CandleSeriesResponse getLatestCandles(Long stockId, String resolution, int count) {
+        // 1. 최신 캔들 count 개를 가져온다.
+        List<Candle> desc = candleRepository.findLatestCandle(stockId, resolution, PageRequest.of(0, count));
+
+        // 2. 차트 오름차순 그리는 과정
+        List<CandleDto> ascDtos = desc.stream()
+                .sorted(Comparator.comparingLong(Candle::getTimeSec))
+                .map(CandleDto::from)
+                .toList();
+
+        return new CandleSeriesResponse(stockId, resolution, ascDtos);
     }
 }
