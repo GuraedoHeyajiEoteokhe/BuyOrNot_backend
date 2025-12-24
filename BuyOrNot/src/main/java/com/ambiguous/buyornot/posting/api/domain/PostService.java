@@ -1,6 +1,5 @@
 package com.ambiguous.buyornot.posting.api.domain;
 
-import com.ambiguous.buyornot.posting.api.controller.request.PostRequest;
 import com.ambiguous.buyornot.posting.api.controller.request.PostSearchRequest;
 import com.ambiguous.buyornot.posting.api.controller.request.UpdatePostRequest;
 import com.ambiguous.buyornot.posting.api.controller.response.PostDetailResponse;
