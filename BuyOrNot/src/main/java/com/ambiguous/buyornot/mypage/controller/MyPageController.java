@@ -4,7 +4,7 @@ import com.ambiguous.buyornot.common.support.response.ApiResult;
 import com.ambiguous.buyornot.mypage.controller.mypageRequest.UpdateRequest;
 import com.ambiguous.buyornot.mypage.domain.MypageService;
 import com.ambiguous.buyornot.mypage.controller.mypageResponse.UserListResponse;
-import com.ambiguous.buyornot.user.entity.User;
+import com.ambiguous.buyornot.user.api.domain.User;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
