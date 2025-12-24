@@ -9,6 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
@@ -47,6 +50,26 @@ public class AuthService {
         refreshTokenRepository.save(refreshTokenEntity);
 
         return new TokenResponse(accessToken, refreshToken);
+
+    }
+
+    @Transactional
+    public void logout(String refreshToken) {
+
+        jwtTokenProvider.validateToken(refreshToken);
+
+        String userId = jwtTokenProvider.getUserIdFromJWT(refreshToken);
+
+        RefreshToken storedToken = refreshTokenRepository.findById(userId)
+                .orElseThrow(() -> new BadCredentialsException("Refresh token not found"));
+        if(!storedToken.getRefreshToken().equals(refreshToken)) {
+            throw new BadCredentialsException ("토큰 일치 XX");
+        }
+
+        if (storedToken.getExpires().before(new Date())) {
+            throw new BadCredentialsException("토큰 만료");
+        }
+        refreshTokenRepository.deleteByUserId(userId);
 
     }
 }
