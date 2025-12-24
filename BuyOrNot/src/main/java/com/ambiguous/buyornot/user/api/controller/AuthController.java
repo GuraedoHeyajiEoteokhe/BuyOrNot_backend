@@ -2,14 +2,15 @@ package com.ambiguous.buyornot.user.api.controller;
 
 import com.ambiguous.buyornot.common.support.response.ApiResult;
 import com.ambiguous.buyornot.user.api.controller.request.LoginRequest;
+import com.ambiguous.buyornot.user.api.controller.request.LogoutRequest;
 import com.ambiguous.buyornot.user.api.controller.response.TokenResponse;
 import com.ambiguous.buyornot.user.api.domain.AuthService;
+import com.ambiguous.buyornot.user.api.domain.RefreshToken;
+import com.ambiguous.buyornot.user.api.domain.User;
 import com.ambiguous.buyornot.user.api.storage.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -23,5 +24,11 @@ public class AuthController {
     public ApiResult<?> login (@RequestBody LoginRequest request){
         TokenResponse token = authService.login(request);
         return ApiResult.success(token);
+    }
+
+    @PostMapping("/logout")
+    public ApiResult<?> logout(@RequestBody LogoutRequest request){
+        authService.logout(request.refreshToken());
+        return ApiResult.success();
     }
 }

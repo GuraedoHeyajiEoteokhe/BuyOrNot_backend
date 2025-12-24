@@ -2,22 +2,15 @@ package com.ambiguous.buyornot.mypage.domain;
 
 import com.ambiguous.buyornot.mypage.controller.mypageRequest.MypageRequest;
 import com.ambiguous.buyornot.mypage.controller.mypageResponse.PostResponse;
-import com.ambiguous.buyornot.mypage.storage.MypageRepositoty;
-import com.ambiguous.buyornot.mypage.controller.mypageRequest.UpdateRequest;
-import com.ambiguous.buyornot.mypage.controller.mypageResponse.UserListResponse;
+import com.ambiguous.buyornot.mypage.storage.MypageRepository;
 import com.ambiguous.buyornot.posting.api.domain.Post;
 import com.ambiguous.buyornot.posting.storage.PostRepository;
-import com.ambiguous.buyornot.user.api.domain.User;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class MypageService {
-    MypageRepositoty mypageRepository;
+    MypageRepository mypageRepository;
     PostRepository postRepository;
-
 //    UserRepository userRepository;
 
 /*
