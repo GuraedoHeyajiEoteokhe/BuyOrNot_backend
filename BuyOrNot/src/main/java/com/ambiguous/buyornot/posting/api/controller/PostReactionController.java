@@ -22,4 +22,13 @@ public class PostReactionController {
         postReactionService.react(request.postId(), request.userId(), request.type());
         return ApiResult.success();
     }
+
+    @DeleteMapping("/posts/{postId}/reactions")
+    @Operation(summary = "게시글 반응 취소 API입니다.")
+    public ApiResult<?> cancelReaction(
+            @RequestBody PostReactionRequest request
+    ) {
+        postReactionService.cancelReaction(request.postId(), request.userId());
+        return ApiResult.success();
+    }
 }

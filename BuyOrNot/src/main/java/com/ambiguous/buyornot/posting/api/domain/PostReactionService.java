@@ -2,8 +2,6 @@ package com.ambiguous.buyornot.posting.api.domain;
 
 import com.ambiguous.buyornot.posting.storage.PostReactionRepository;
 import com.ambiguous.buyornot.posting.storage.PostRepository;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,11 +11,6 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-@Table(
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"post_id", "user_id"})
-        }
-)
 public class PostReactionService {
 
     private final PostRepository postRepository;
@@ -45,5 +38,19 @@ public class PostReactionService {
         post.decreaseReaction(reaction.getType());
         reaction.changeType(type);
         post.increaseReaction(type);
+    }
+
+    public void cancelReaction(Long postId, Long userId) {
+
+        PostReaction reaction = postReactionRepository
+                .findByPostIdAndUserId(postId, userId)
+                .orElseThrow(() -> new IllegalArgumentException("취소할 반응이 없습니다."));
+
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+
+        post.decreaseReaction(reaction.getType());
+
+        postReactionRepository.delete(reaction);
     }
 }
