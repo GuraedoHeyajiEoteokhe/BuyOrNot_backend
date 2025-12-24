@@ -56,4 +56,20 @@ public class Post extends BaseEntity {
         this.title = title;
         this.content = content;
     }
+
+    public void increaseReaction(ReactionType type) {
+        if (type == ReactionType.LIKE) {
+            this.likeCount++;
+        } else {
+            this.dislikeCount++;
+        }
+    }
+
+    public void decreaseReaction(ReactionType type) {
+        if (type == ReactionType.LIKE) {
+            this.likeCount--;
+        } else {
+            this.dislikeCount--;
+        }
+    }
 }

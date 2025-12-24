@@ -23,4 +23,14 @@ public class PostReaction extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ReactionType type;
+
+    public PostReaction(Long postId, Long userId, ReactionType type) {
+        this.postId = postId;
+        this.userId = userId;
+        this.type = type;
+    }
+
+    public void changeType(ReactionType newType) {
+        this.type = newType;
+    }
 }
