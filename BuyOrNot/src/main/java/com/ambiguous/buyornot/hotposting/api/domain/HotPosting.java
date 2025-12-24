@@ -21,8 +21,8 @@ public class HotPosting extends BaseEntity {
     @Column(name = "writer_id", nullable = false)
     private Long writerId;  // 게시글 작성자 아이디 - 게시글 테이블(사용자 테이블)
 
-    @Column(name = "symbol", nullable = false, length = 20)
-    private String symbol;  // 종목 종류
+    @Column(name = "stock_id", nullable = false, length = 20)
+    private Long stockId;  // 종목 종류
 
     @Column(name = "write_at", nullable = false)
     private LocalDateTime writeAt;  // 게시글 작성 시각 (post.writeAt 같은 의미)
@@ -41,13 +41,13 @@ public class HotPosting extends BaseEntity {
     @Column(name = "redis_synced_at")
     private LocalDateTime redisSyncedAt;
 
-    public HotPosting(Long postingId, Long writerId, String symbol,
+    public HotPosting(Long postingId, Long writerId, Long stockId,
                       LocalDateTime writeAt,
                       LocalDateTime registeredAt,
                       LocalDateTime expireAt) {
         this.postingId = postingId;
         this.writerId = writerId;
-        this.symbol = symbol;
+        this.stockId = stockId;
         this.writeAt = writeAt;
         this.registeredAt = registeredAt;
         this.expireAt = expireAt;

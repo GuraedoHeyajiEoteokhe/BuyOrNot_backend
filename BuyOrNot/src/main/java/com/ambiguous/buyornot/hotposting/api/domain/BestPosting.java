@@ -21,8 +21,8 @@ public class BestPosting extends BaseEntity {
     @Column(name = "writer_id", nullable = false)
     private Long writerId;  // 작성자 아이디
 
-    @Column(name = "symbol", nullable = false, length = 20)
-    private String symbol;  // 종목 심볼
+    @Column(name = "stock_id", nullable = false, length = 20)
+    private Long stock_id;  // 종목 심볼
 
     @Column(name = "write_at", nullable = false)
     private LocalDateTime writeAt;  // 게시글 작성 시각 (정렬 기준)
