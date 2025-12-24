@@ -22,15 +22,6 @@ public class HotPostingController {
     @PostMapping
     public ApiResult<?> create(@RequestBody HotPostingCreateRequest request){
 
-        // 존재하는 게시글인지 검증
-        if(!postRepository.existsById(request.postingId())){
-            throw new IllegalArgumentException("Posting with id " + request.postingId() + " does not exist");
-        }
-        // 핫게시글에 이미 등록된 게시글인지 검증
-        if(hotPostingRepository.existsByPostingId(request.postingId())){
-            throw new IllegalStateException("이미 핫게시글로 등록된 게시글입니다.");
-        }
-
         hotPostingService.register(request);
         return ApiResult.success();
     }

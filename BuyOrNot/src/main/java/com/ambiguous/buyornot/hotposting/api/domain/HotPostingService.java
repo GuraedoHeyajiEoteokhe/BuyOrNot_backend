@@ -4,6 +4,7 @@ import com.ambiguous.buyornot.hotposting.api.controller.redis.HotPostingRedisSto
 import com.ambiguous.buyornot.hotposting.api.controller.request.HotPostingCreateRequest;
 import com.ambiguous.buyornot.hotposting.api.storage.HotPostingRepository;
 import com.ambiguous.buyornot.posting.api.domain.Post;
+import com.ambiguous.buyornot.posting.storage.PostRepository;
 import com.ambiguous.buyornot.stock.storage.StockRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,10 +20,18 @@ public class HotPostingService {
     private HotPostingRepository hotPostingRepository;
     private StockRepository stockRepository;
     private HotPostingRedisStore hotPostingRedisStore;
+    private PostRepository postRepository;
 
     @Transactional
     public void register(HotPostingCreateRequest request){
-
+        // 존재하는 게시글인지 검증
+        if(!postRepository.existsById(request.postingId())){
+            throw new IllegalArgumentException("Posting with id " + request.postingId() + " does not exist");
+        }
+        // 핫게시글에 이미 등록된 게시글인지 검증
+        if(hotPostingRepository.existsByPostingId(request.postingId())){
+            throw new IllegalStateException("이미 핫게시글로 등록된 게시글입니다.");
+        }
         LocalDateTime now = LocalDateTime.now();
 
         HotPosting hotPosting = new HotPosting(
