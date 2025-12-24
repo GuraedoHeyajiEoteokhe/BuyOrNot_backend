@@ -39,6 +39,15 @@ public class HotPostingRedisStore {
 
     }
 
+    // 현재 이 post가 redis top30에 존재하는지 검증하는 메서드
+    public boolean isInTop30(Long stockId, Long postingId){
+        String key = AmbiguousKey.hotPostingTop30(stockId);
+        Double score = redisTemplate.opsForZSet()
+                .score(key, postingId.toString());
+
+        return score != null;
+    }
+
     private void trimToTop30(String key) {
         Long size = redisTemplate.opsForZSet().zCard(key);
         if(size != null && size > 30){

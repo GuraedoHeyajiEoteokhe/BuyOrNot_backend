@@ -33,6 +33,14 @@ public class HotPosting extends BaseEntity {
     @Column(name = "expire_at", nullable = false)
     private LocalDateTime expireAt; // 핫 만료 시각 (registeredAt + 72h)
 
+    // Redis 반영 성공 여부 (동기화 상태)
+    @Column(name = "redis_synced", nullable = false)
+    private boolean redisSynced;
+
+    // 마지막 Redis 반영 성공 시각
+    @Column(name = "redis_synced_at")
+    private LocalDateTime redisSyncedAt;
+
     public HotPosting(Long postingId, Long writerId, String symbol,
                       LocalDateTime writeAt,
                       LocalDateTime registeredAt,
@@ -43,5 +51,21 @@ public class HotPosting extends BaseEntity {
         this.writeAt = writeAt;
         this.registeredAt = registeredAt;
         this.expireAt = expireAt;
+
+        // 기본값: 아직 Redis 반영 안 됨
+        this.redisSynced = false;
+        this.redisSyncedAt = null;
+    }
+
+    /** Redis 반영 성공 시 호출 */
+    public void markRedisSynced(LocalDateTime syncedAt) {
+        this.redisSynced = true;
+        this.redisSyncedAt = syncedAt;
+    }
+
+    /** (선택) Redis 반영 실패/초기화 시 */
+    public void markRedisUnsynced() {
+        this.redisSynced = false;
+        this.redisSyncedAt = null;
     }
 }
