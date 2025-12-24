@@ -37,12 +37,4 @@ public class ChartController {
         return ApiResult.success(chartService.getLatestCandles(stockId, resolution, count));
     }
 
-    // /api/charts/latest-bar?stockId=1
-    @GetMapping("/latest-bar")
-    public CandleDto latestBar(
-            @RequestParam Long stockId,
-            @RequestParam(required = false) String resolution
-    ) {
-        return chartService.latestBar(stockId, resolution);
-    }
 }
