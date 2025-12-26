@@ -2,7 +2,6 @@ package com.ambiguous.buyornot.posting.api.controller;
 
 import com.ambiguous.buyornot.common.support.response.ApiResult;
 import com.ambiguous.buyornot.posting.api.controller.request.CreatePostRequest;
-import com.ambiguous.buyornot.posting.api.controller.request.PostRequest;
 import com.ambiguous.buyornot.posting.api.controller.request.PostSearchRequest;
 import com.ambiguous.buyornot.posting.api.controller.request.UpdatePostRequest;
 import com.ambiguous.buyornot.posting.api.controller.response.PostDetailResponse;
@@ -25,10 +24,10 @@ public class PostController {
     @PostMapping("/stocks/{stockId}/posts")
     @Operation(summary = "게시글 생성 API입니다.")
     public ApiResult<?> createPost(
+            @PathVariable Long stockId,
             @RequestBody CreatePostRequest request
     ) {
-        String nickname = "nickName";
-        Post post = request.post().toEntity(request.stockId(), request.userId(), nickname);
+        Post post = request.post().toEntity(stockId, request.userId(), request.nickname());
 
         postService.save(post);
         return ApiResult.success();
@@ -62,10 +61,9 @@ public class PostController {
     @Operation(summary = "게시글 수정 API입니다.")
     public ApiResult<?> updatePost(
             @PathVariable Long postId,
-            @RequestParam Long userId,
             @RequestBody UpdatePostRequest request
     ) {
-        postService.updatePost(postId, userId, request);
+        postService.updatePost(postId, request);
         return ApiResult.success();
     }
 
