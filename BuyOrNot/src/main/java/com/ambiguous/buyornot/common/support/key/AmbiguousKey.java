@@ -11,7 +11,19 @@ package com.ambiguous.buyornot.common.support.key;
 public class AmbiguousKey {
     private static final String PREFIX = "ambiguous";
 
+    public static String makeUser(Long userId) {
+        return "user:" + userId;
+    }
+
+    public static Long getUser(String user) {
+        return Long.parseLong(user.split(":")[1]);
+    }
+
     public static String hotPostingTop30(Long stockId) {
         return PREFIX + ":hotposting:top30:" + stockId;
+    }
+
+    public static String chatting(Long ambiguousId) {
+        return PREFIX + ":" + ambiguousId + ":chatting";
     }
 }
