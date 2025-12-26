@@ -16,7 +16,7 @@ import java.util.List;
 @Transactional
 public class PostService {
 
-private final PostRepository postRepository;
+    private final PostRepository postRepository;
 
     public void save(Post post) {
         postRepository.save(post);
