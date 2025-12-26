@@ -22,11 +22,9 @@ public class CommentController {
     @Operation(summary = "댓글/대댓글 작성 API입니다.")
     public ApiResult<?> createComment(
             @PathVariable Long postId,
-            @RequestParam Long userId,
             @RequestBody CreateCommentRequest request
     ) {
-        String userNickname = "nickName";
-        commentService.createComment(postId, userId, userNickname, request);
+        commentService.createComment(postId, request);
         return ApiResult.success();
     }
 
@@ -42,10 +40,9 @@ public class CommentController {
     @Operation(summary = "댓글 수정 API입니다.")
     public ApiResult<?> updateComment(
             @PathVariable Long commentId,
-            @RequestParam Long userId,
             @RequestBody UpdateCommentRequest request
     ) {
-        commentService.updateComment(commentId, userId, request);
+        commentService.updateComment(commentId, request);
         return ApiResult.success();
     }
 
@@ -59,7 +56,7 @@ public class CommentController {
         return ApiResult.success();
     }
 
-    @PutMapping("/comments/{commentId}/pin")
+    @PutMapping("/{commentId}/pin")
     @Operation(summary = "댓글 고정 API입니다.")
     public ApiResult<?> pinComment(
             @PathVariable Long commentId,
@@ -69,7 +66,7 @@ public class CommentController {
         return ApiResult.success();
     }
 
-    @DeleteMapping("/comments/{commentId}/pin")
+    @DeleteMapping("/{commentId}/pin")
     @Operation(summary = "댓글 고정 해제 API입니다.")
     public ApiResult<?> unpinComment(
             @PathVariable Long commentId,

@@ -22,7 +22,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
 
-    public void createComment(Long postId, Long userId, String userNickname, CreateCommentRequest request) {
+    public void createComment(Long postId, CreateCommentRequest request) {
 
         Comment parent = null;
 
@@ -40,7 +40,7 @@ public class CommentService {
             }
         }
 
-        Comment comment = request.toEntity(postId, userId, userNickname, parent);
+        Comment comment = request.toEntity(postId, parent);
         commentRepository.save(comment);
     }
 
@@ -72,11 +72,7 @@ public class CommentService {
         return roots;
     }
 
-    public void updateComment(
-            Long commentId,
-            Long userId,
-            UpdateCommentRequest request
-    ) {
+    public void updateComment(Long commentId, UpdateCommentRequest request) {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new IllegalArgumentException("댓글이 존재하지 않습니다."));
 
@@ -84,7 +80,7 @@ public class CommentService {
             throw new IllegalStateException("삭제된 댓글은 수정할 수 없습니다.");
         }
 
-        if (!comment.getUserId().equals(userId)) {
+        if (!comment.getUserId().equals(request.userId())) {
             throw new IllegalStateException("댓글 수정 권한이 없습니다.");
         }
 
