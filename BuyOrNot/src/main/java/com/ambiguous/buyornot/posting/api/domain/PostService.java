@@ -1,6 +1,6 @@
 package com.ambiguous.buyornot.posting.api.domain;
 
-import com.ambiguous.buyornot.posting.api.controller.request.PostRequest;
+import com.ambiguous.buyornot.posting.api.controller.request.PostSearchRequest;
 import com.ambiguous.buyornot.posting.api.controller.request.UpdatePostRequest;
 import com.ambiguous.buyornot.posting.api.controller.response.PostDetailResponse;
 import com.ambiguous.buyornot.posting.api.controller.response.PostListResponse;
@@ -18,9 +18,7 @@ public class PostService {
 
 private final PostRepository postRepository;
 
-    public void createPost(Long stockId, Long userId, String nickname, PostRequest dto) {
-
-        Post post = dto.toEntity(stockId, userId, nickname);
+    public void save(Post post) {
         postRepository.save(post);
     }
 
@@ -31,6 +29,20 @@ private final PostRepository postRepository;
                 .stream()
                 .map(PostListResponse::from)
                 .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostListResponse> searchPosts(PostSearchRequest request) {
+
+        if (request.getUserId() != null) {
+            return getPostsByUserId(request.getUserId());
+        }
+
+        if (request.getTitle() != null) {
+            return searchPostsByTitle(request.getTitle());
+        }
+
+        return List.of();
     }
 
     @Transactional(readOnly = true)
@@ -61,12 +73,12 @@ private final PostRepository postRepository;
     }
 
     @Transactional
-    public void updatePost(Long postId, Long userId, UpdatePostRequest request) {
+    public void updatePost(Long postId, UpdatePostRequest request) {
 
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
 
-        if (!post.getUserId().equals(userId)) {
+        if (!post.getUserId().equals(request.userId())) {
             throw new IllegalStateException("게시글 수정 권한이 없습니다.");
         }
 
@@ -79,7 +91,6 @@ private final PostRepository postRepository;
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
 
-        // 작성자 검증
         if (!post.getUserId().equals(userId)) {
             throw new IllegalStateException("게시글 삭제 권한이 없습니다.");
         }
