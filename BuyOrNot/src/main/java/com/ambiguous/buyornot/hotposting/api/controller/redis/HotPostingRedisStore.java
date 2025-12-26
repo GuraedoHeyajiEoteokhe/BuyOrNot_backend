@@ -32,7 +32,7 @@ public class HotPostingRedisStore {
 
     }
 
-    // 핫포스팅 스케줄러에서 게시글이 존재하는지 확인하는 메서드에서 사용 예정
+    // 핫포스팅 만료시간이 지난 게시글 redis에서 지울때 사용
     public void remove(Long postingId, Long stockId){
         String key = AmbiguousKey.hotPostingTop30(stockId);
         redisTemplate.opsForZSet().remove(key, postingId.toString());

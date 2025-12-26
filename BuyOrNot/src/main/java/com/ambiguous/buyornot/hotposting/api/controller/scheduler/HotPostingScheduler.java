@@ -1,5 +1,6 @@
 package com.ambiguous.buyornot.hotposting.api.controller.scheduler;
 
+import com.ambiguous.buyornot.hotposting.api.controller.redis.HotPostingRedisStore;
 import com.ambiguous.buyornot.hotposting.api.domain.HotPosting;
 import com.ambiguous.buyornot.hotposting.api.domain.HotPostingService;
 import com.ambiguous.buyornot.hotposting.api.storage.HotPostingRepository;
@@ -10,27 +11,25 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 public class HotPostingScheduler {
 
-    private final PostRepository postRepository;
     private final HotPostingService hotPostingService;
-    private final HotPostingRepository hotPostingRepository;
+
 
     @Scheduled(fixedRate = 60000)
     public void hotPostingRegister(){
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime oneHourAgo = now.minusHours(1);
+        hotPostingService.autoRegisterHotPostings();
 
-        for(Post p : postRepository.findByCreatedAtAfter(oneHourAgo)){
-            int like = postRepository.findLikeCount(p.getId());
+    }
 
-            if(like >= 10){
-                hotPostingService.registerFromPost(p);
-            }
-        }
+    @Scheduled(fixedRate = 5*60*1000)
+    public void cleanupExpiredFromRedis(){
+
+        hotPostingService.cleanupExpiredFromRedis();
 
     }
 

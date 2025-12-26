@@ -27,5 +27,11 @@ public class HotPostingController {
         return ApiResult.success();
     }
 
+    @DeleteMapping
+    public ApiResult<?> delete(@RequestBody HotPostingPassiveRequest request){
+        hotPostingService.removeByAdmin(request);
+        return ApiResult.success();
+    }
+
 
 }
