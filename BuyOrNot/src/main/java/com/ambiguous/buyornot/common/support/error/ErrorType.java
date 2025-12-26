@@ -13,8 +13,38 @@ public enum ErrorType {
 
     // 유효하지 않은 인자값 경고
     DEFAULT_ARGUMENT_NOT_VALID(HttpStatus.BAD_REQUEST, ErrorCode.E400, "An unexpected error has occurred.", LogLevel.WARN),
-    DEFAULT_ARGUMENT_NOT_VALID_ISNULL(HttpStatus.BAD_REQUEST, ErrorCode.E401, "유효하지 않은 값입니다.", LogLevel.ERROR)
+    DEFAULT_ARGUMENT_NOT_VALID_ISNULL(HttpStatus.BAD_REQUEST, ErrorCode.E401, "유효하지 않은 값입니다.", LogLevel.ERROR),
 
+    // 핫포스팅
+    // HotPosting - 4xx
+    HOTPOSTING_POST_NOT_FOUND(
+            HttpStatus.NOT_FOUND, ErrorCode.H404,
+            "존재하지 않는 게시글입니다.", LogLevel.WARN),
+
+    HOTPOSTING_STOCK_NOT_FOUND(
+            HttpStatus.NOT_FOUND, ErrorCode.H404,
+            "존재하지 않는 종목입니다.", LogLevel.WARN),
+
+    HOTPOSTING_NOT_FOUND(
+            HttpStatus.NOT_FOUND, ErrorCode.H404,
+            "핫게시글로 등록되지 않은 게시글입니다.", LogLevel.WARN),
+
+    HOTPOSTING_ALREADY_EXISTS(
+            HttpStatus.CONFLICT, ErrorCode.H409,
+            "이미 핫게시글로 등록된 게시글입니다.", LogLevel.WARN),
+
+    HOTPOSTING_FORBIDDEN(
+            HttpStatus.FORBIDDEN, ErrorCode.H403,
+            "관리자만 접근할 수 있습니다.", LogLevel.WARN),
+
+    HOTPOSTING_INVALID_REQUEST(
+            HttpStatus.BAD_REQUEST, ErrorCode.H400,
+            "요청 값이 올바르지 않습니다.", LogLevel.WARN),
+
+    // HotPosting - 5xx
+    HOTPOSTING_REDIS_SYNC_FAILED(
+            HttpStatus.INTERNAL_SERVER_ERROR, ErrorCode.H500,
+            "Redis 반영에 실패했습니다.", LogLevel.ERROR)
 
     ;
 
