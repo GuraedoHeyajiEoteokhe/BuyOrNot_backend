@@ -15,20 +15,12 @@ public class PostReactionController {
     private final PostReactionService postReactionService;
 
     @PostMapping("/posts/{postId}/reactions")
-    @Operation(summary = "게시글 반응 등록/변경 API입니다.")
+    @Operation(summary = "게시글 반응 토글 API입니다.")
     public ApiResult<?> react(
+            @PathVariable Long postId,
             @RequestBody PostReactionRequest request
     ) {
-        postReactionService.react(request.postId(), request.userId(), request.type());
-        return ApiResult.success();
-    }
-
-    @DeleteMapping("/posts/{postId}/reactions")
-    @Operation(summary = "게시글 반응 취소 API입니다.")
-    public ApiResult<?> cancelReaction(
-            @RequestBody PostReactionRequest request
-    ) {
-        postReactionService.cancelReaction(request.postId(), request.userId());
+        postReactionService.react(postId, request.userId(), request.type());
         return ApiResult.success();
     }
 }

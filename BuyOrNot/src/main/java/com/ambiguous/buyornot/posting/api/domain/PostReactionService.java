@@ -17,40 +17,31 @@ public class PostReactionService {
     private final PostReactionRepository postReactionRepository;
 
     public void react(Long postId, Long userId, ReactionType type) {
-
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
 
-        Optional<PostReaction> optionalReaction = postReactionRepository.findByPostIdAndUserId(postId, userId);
+        Optional<PostReaction> optional = postReactionRepository
+                .findByPostIdAndUserId(postId, userId);
 
-        if (optionalReaction.isEmpty()) {
+        // 반응 생성
+        if (optional.isEmpty()) {
             postReactionRepository.save(new PostReaction(postId, userId, type));
             post.increaseReaction(type);
             return;
         }
 
-        PostReaction reaction = optionalReaction.get();
+        PostReaction reaction = optional.get();
 
+        // 반응 취소
         if (reaction.getType() == type) {
-            throw new IllegalStateException("이미 해당 반응을 눌렀습니다.");
+            post.decreaseReaction(type);
+            postReactionRepository.delete(reaction);
+            return;
         }
 
+        // 반응 변경
         post.decreaseReaction(reaction.getType());
         reaction.changeType(type);
         post.increaseReaction(type);
-    }
-
-    public void cancelReaction(Long postId, Long userId) {
-
-        PostReaction reaction = postReactionRepository
-                .findByPostIdAndUserId(postId, userId)
-                .orElseThrow(() -> new IllegalArgumentException("취소할 반응이 없습니다."));
-
-        Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
-
-        post.decreaseReaction(reaction.getType());
-
-        postReactionRepository.delete(reaction);
     }
 }
