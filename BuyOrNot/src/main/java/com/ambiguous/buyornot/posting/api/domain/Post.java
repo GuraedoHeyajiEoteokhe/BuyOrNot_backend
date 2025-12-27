@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "tbl_post")
 public class Post extends BaseEntity {
 
     @Column(nullable = false)
