@@ -10,14 +10,14 @@ public class FinnhubClientConfig {
 
     @Bean
     public WebClient finnhubWebClient(
-            @Value("${collector.finnhub.base-url}") String baseUrl,
-            @Value("${collector.finnhub.token:}") String token
+            @Value("${finnhub.api.base-url}") String baseUrl,
+            @Value("${finnhub.api.token}") String token
     ) {
         if (baseUrl == null || baseUrl.isBlank()) {
-            throw new IllegalStateException("collector.finnhub.base-url is empty");
+            throw new IllegalStateException("finnhub.api.base-url is empty");
         }
         if (token == null || token.isBlank()) {
-            throw new IllegalStateException("collector.finnhub.token is empty (set FINNHUB_TOKEN env or yml)");
+            throw new IllegalStateException("finnhub.api.token is empty (set FINNHUB_TOKEN env or yml)");
         }
 
         return WebClient.builder()
