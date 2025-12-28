@@ -1,9 +1,7 @@
 package com.ambiguous.buyornot.posting.api.domain;
 
 import com.ambiguous.buyornot.common.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +17,10 @@ public class PostReport extends BaseEntity {
 
     @Column(nullable = false)
     private Long reporterId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ReportType type;
 
     @Column(length = 500)
     private String reason;
