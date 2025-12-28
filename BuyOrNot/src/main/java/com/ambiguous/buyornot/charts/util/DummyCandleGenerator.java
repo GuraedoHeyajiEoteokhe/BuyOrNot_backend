@@ -1,7 +1,7 @@
 package com.ambiguous.buyornot.charts.util;
 
 
-import com.ambiguous.buyornot.charts.entity.Candle;
+import com.ambiguous.buyornot.charts.api.domain.Candle;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -33,16 +33,7 @@ public class DummyCandleGenerator {
             double low = Math.min(open, close);
             double volume = 100 + r.nextInt(900);
 
-            list.add(Candle.builder()
-                            .stockId(stockId)
-                            .timeSec(t)
-                            .resolution(resolution)
-                            .openPrice(open)
-                            .highPrice(high)
-                            .lowPrice(low)
-                            .closePrice(close)
-                            .volume(volume)
-                            .build());
+            list.add(Candle.create(stockId, t,resolution,open,high,low,close,volume));
 
             price = close;
         }
