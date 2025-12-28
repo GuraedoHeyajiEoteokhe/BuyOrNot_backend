@@ -1,9 +1,7 @@
 package com.ambiguous.buyornot.posting.api.domain;
 
 import com.ambiguous.buyornot.common.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Lob;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "tbl_post")
 public class Post extends BaseEntity {
 
     @Column(nullable = false)
@@ -55,5 +54,21 @@ public class Post extends BaseEntity {
     public void update(String title, String content) {
         this.title = title;
         this.content = content;
+    }
+
+    public void increaseReaction(ReactionType type) {
+        if (type == ReactionType.LIKE) {
+            this.likeCount++;
+        } else {
+            this.dislikeCount++;
+        }
+    }
+
+    public void decreaseReaction(ReactionType type) {
+        if (type == ReactionType.LIKE) {
+            this.likeCount--;
+        } else {
+            this.dislikeCount--;
+        }
     }
 }
