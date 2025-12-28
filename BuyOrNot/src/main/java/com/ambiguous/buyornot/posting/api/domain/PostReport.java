@@ -16,7 +16,7 @@ public class PostReport extends BaseEntity {
     private Long postId;
 
     @Column(nullable = false)
-    private Long reporterId;
+    private Long userId;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -24,4 +24,11 @@ public class PostReport extends BaseEntity {
 
     @Column(length = 500)
     private String reason;
+
+    public PostReport(Long postId, Long userId, ReportType type, String reason) {
+        this.postId = postId;
+        this.userId = userId;
+        this.type = type;
+        this.reason = reason;
+    }
 }
