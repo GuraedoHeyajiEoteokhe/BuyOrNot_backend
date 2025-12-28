@@ -1,6 +1,5 @@
 package com.ambiguous.buyornot.posting.storage;
 
-import com.ambiguous.buyornot.mypage.controller.mypageResponse.PostResponse;
 import com.ambiguous.buyornot.posting.api.domain.Post;
 import io.lettuce.core.dynamic.annotation.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
