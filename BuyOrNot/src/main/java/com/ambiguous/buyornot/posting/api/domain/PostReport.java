@@ -9,7 +9,12 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "tbl_report")
+@Table(
+        name = "tbl_report",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"post_id", "reporter_id"})
+        }
+)
 public class PostReport extends BaseEntity {
 
     @Column(nullable = false)
