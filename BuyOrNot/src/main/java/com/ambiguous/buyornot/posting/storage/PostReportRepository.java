@@ -8,4 +8,7 @@ import java.util.Optional;
 public interface PostReportRepository extends JpaRepository<PostReport, Long> {
 
     Optional<PostReport> findByPostIdAndUserId(Long postId, Long userId);
+    long countByPostId(Long postId);
+
+    void deleteByPostId(Long postId);
 }
