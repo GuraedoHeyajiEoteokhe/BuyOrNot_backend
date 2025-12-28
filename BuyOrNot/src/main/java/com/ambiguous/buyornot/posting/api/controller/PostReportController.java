@@ -23,4 +23,14 @@ public class PostReportController {
         postReportService.report(postId, request.userId(), request.type(), request.reason());
         return ApiResult.success();
     }
+
+    @DeleteMapping("/posts/{postId}/reports")
+    @Operation(summary = "게시글 신고 취소 API입니다.")
+    public ApiResult<?> cancelReport(
+            @PathVariable Long postId,
+            @RequestParam Long userId
+    ) {
+        postReportService.cancel(postId, userId);
+        return ApiResult.success();
+    }
 }

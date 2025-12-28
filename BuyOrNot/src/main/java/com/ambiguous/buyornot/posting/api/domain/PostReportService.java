@@ -25,4 +25,13 @@ public class PostReportService {
         PostReport report = new PostReport(postId, reporterId, type, reason);
         postReportRepository.save(report);
     }
+
+    public void cancel(Long postId, Long reporterId) {
+
+        PostReport report = postReportRepository
+                .findByPostIdAndUserId(postId, reporterId)
+                .orElseThrow(() -> new IllegalArgumentException("신고 내역이 존재하지 않습니다."));
+
+        postReportRepository.delete(report);
+    }
 }
