@@ -3,10 +3,14 @@ package com.ambiguous.buyornot.user.api.domain;
 import com.ambiguous.buyornot.common.support.error.CoreException;
 import com.ambiguous.buyornot.common.support.error.ErrorCode;
 import com.ambiguous.buyornot.user.api.controller.request.UserCreateRequest;
+import com.ambiguous.buyornot.user.api.controller.request.UserWithdrawRequest;
+import com.ambiguous.buyornot.user.api.storage.RefreshTokenRepository;
 import com.ambiguous.buyornot.user.api.storage.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +22,7 @@ public class UserCommandService {
     private final UserRepository userRepository;
     public final ModelMapper modelMapper;
     public final PasswordEncoder passwordEncoder;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     @Transactional
     public void registerUser(UserCreateRequest request) {
@@ -69,5 +74,23 @@ public class UserCommandService {
 
     private boolean isNullOrEmpty(String value) {
         return value == null || value.isBlank();
+    }
+
+    @Transactional
+    public void withdrawUser(UserWithdrawRequest request) {
+
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        User user = userRepository.findByUserId(userId)
+                .orElseThrow(() -> new UsernameNotFoundException("유저 정보 없음"));
+
+        if(!passwordEncoder.matches(request.password(), user.getPassword())) {
+            throw new BadCredentialsException("비밀번호 일치하지 않습니다.");
+        }
+
+        refreshTokenRepository.deleteByUserId(userId);
+
+        userRepository.delete(user);
+
     }
 }
