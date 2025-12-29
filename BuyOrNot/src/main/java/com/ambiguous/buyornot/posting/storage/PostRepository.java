@@ -1,6 +1,5 @@
 package com.ambiguous.buyornot.posting.storage;
 
-import com.ambiguous.buyornot.mypage.controller.mypageResponse.PostResponse;
 import com.ambiguous.buyornot.posting.api.domain.Post;
 import io.lettuce.core.dynamic.annotation.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,7 +9,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
-
 
     List<Post> findByStockIdOrderByCreatedAtDesc(Long stockId);
     List<Post> findByUserIdOrderByCreatedAtDesc(Long userId);
