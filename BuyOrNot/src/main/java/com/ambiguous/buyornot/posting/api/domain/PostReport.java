@@ -1,7 +1,12 @@
 package com.ambiguous.buyornot.posting.api.domain;
 
 import com.ambiguous.buyornot.common.BaseEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
