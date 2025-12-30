@@ -74,7 +74,15 @@ public class SwaggerConfig {
     public GroupedOpenApi postGroup() {
         return GroupedOpenApi.builder()
                 .group("Post API")
-                .pathsToMatch("/api/v1/post/**")
+                .pathsToMatch("/api/v1/posts/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi commentGroup() {
+        return GroupedOpenApi.builder()
+                .group("Comment API")
+                .pathsToMatch("/api/v1/comments/**")
                 .build();
     }
 
