@@ -23,7 +23,7 @@ spring:
       port: ${REDIS_PORT:6379}
 
 server:
-  port: 8080
+  port: 8081
 
 jwt:
   secret: LH9QZL8upsPBfuDY+Dkb1kT9DZIIUSuA2u4O6Lfi3mkEfeWtETpVTcR/8SMZdJWn/xNTuCQBE6rBvDXgnVmscQ==
