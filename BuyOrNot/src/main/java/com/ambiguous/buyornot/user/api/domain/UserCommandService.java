@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -92,5 +93,13 @@ public class UserCommandService {
 
         userRepository.delete(user);
 
+    }
+
+    @Transactional
+    public String findUserId(String email, String userName) {
+        User user = userRepository.findByEmailAndUserName(email, userName)
+                .orElseThrow(() -> new UsernameNotFoundException("일치하는 사용자정보가 없습니다."));
+
+        return user.getUserId();
     }
 }
