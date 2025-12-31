@@ -1,7 +1,15 @@
 package com.ambiguous.buyornot.posting.api.domain;
 
 import com.ambiguous.buyornot.common.BaseEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,7 +28,6 @@ public class Comment extends BaseEntity {
     @JoinColumn(name = "parentId")
     private Comment parent;
 
-    @Column(nullable = false)
     private Long userId;
 
     @Column(nullable = false, length = 30)
@@ -33,8 +40,9 @@ public class Comment extends BaseEntity {
     @Column(nullable = false)
     private boolean pinned = false;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private boolean deleted = false;
+    private CommentDeleteType deleteReason = CommentDeleteType.NONE;
 
     @Builder
     public Comment(Long postId, Comment parent, Long userId, String userNickname, String content) {
@@ -57,8 +65,17 @@ public class Comment extends BaseEntity {
         this.pinned = false;
     }
 
-    public void softDelete() {
-        this.deleted = true;
+    public boolean isDeleted() {
+        return deleteReason != CommentDeleteType.NONE;
+    }
+
+    public void softDeleteByUser() {
+        this.deleteReason = CommentDeleteType.USER;
+        this.pinned = false;
+    }
+
+    public void softDeleteByReport() {
+        this.deleteReason = CommentDeleteType.REPORT;
         this.pinned = false;
     }
 }
