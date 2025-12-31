@@ -1,6 +1,7 @@
 package com.ambiguous.buyornot.user.api.controller;
 
 import com.ambiguous.buyornot.common.support.response.ApiResult;
+import com.ambiguous.buyornot.user.api.controller.request.FindUserIdRequest;
 import com.ambiguous.buyornot.user.api.controller.request.UserCreateRequest;
 import com.ambiguous.buyornot.user.api.controller.request.UserWithdrawRequest;
 import com.ambiguous.buyornot.user.api.domain.UserCommandService;
@@ -26,6 +27,16 @@ public class UserCommandController {
     public ApiResult<?> withdrawUser (@RequestBody UserWithdrawRequest request){
         userCommandService.withdrawUser(request);
         return ApiResult.success();
+    }
+
+    @PostMapping("users/find-id")
+    public ApiResult<?> findUserId(@RequestBody FindUserIdRequest request){
+        String userId = userCommandService.findUserId(
+                request.email(),
+                request.userName()
+        );
+
+        return ApiResult.success(userId);
     }
 
 }
