@@ -36,7 +36,9 @@ public class PostReportService {
             commentRepository.deleteByPostId(postId);
             postReactionRepository.deleteByPostId(postId);
             postReportRepository.deleteByPostId(postId);
-            postRepository.delete(post);
+
+            post.softDelete();
+            postRepository.save(post);
         }
     }
 
