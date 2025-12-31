@@ -1,7 +1,5 @@
 package com.ambiguous.buyornot.posting.api.domain;
 
-import com.ambiguous.buyornot.posting.storage.CommentRepository;
-import com.ambiguous.buyornot.posting.storage.PostReactionRepository;
 import com.ambiguous.buyornot.posting.storage.PostReportRepository;
 import com.ambiguous.buyornot.posting.storage.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +15,6 @@ public class PostReportService {
 
     private final PostRepository postRepository;
     private final PostReportRepository postReportRepository;
-    private final CommentRepository commentRepository;
-    private final PostReactionRepository postReactionRepository;
 
     public void report(Long postId, Long userId, ReportType type, String reason) {
         Post post = postRepository.findById(postId)
@@ -28,15 +24,15 @@ public class PostReportService {
             throw new IllegalStateException("이미 신고한 게시글입니다.");
         }
 
+        if (post.isDeleted()) {
+            throw new IllegalStateException("이미 제재된 게시글입니다.");
+        }
+
         postReportRepository.save(new PostReport(postId, userId, type, reason));
 
         long reportCount = postReportRepository.countByPostId(postId);
 
         if (reportCount >= REPORT_LIMIT) {
-            commentRepository.deleteByPostId(postId);
-            postReactionRepository.deleteByPostId(postId);
-            postReportRepository.deleteByPostId(postId);
-
             post.softDelete();
             postRepository.save(post);
         }

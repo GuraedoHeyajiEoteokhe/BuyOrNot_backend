@@ -15,9 +15,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(
-        name = "tbl_report",
+        name = "tbl_post_report",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"post_id", "reporter_id"})
+                @UniqueConstraint(columnNames = {"post_id", "user_id"})
         }
 )
 public class PostReport extends BaseEntity {

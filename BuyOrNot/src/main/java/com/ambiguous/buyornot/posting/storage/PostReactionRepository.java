@@ -8,7 +8,5 @@ import java.util.Optional;
 public interface PostReactionRepository extends JpaRepository<PostReaction, Long> {
 
     Optional<PostReaction> findByPostIdAndUserId(Long postId, Long userId);
-
-    void deleteByPostId(Long postId);
 }
 
