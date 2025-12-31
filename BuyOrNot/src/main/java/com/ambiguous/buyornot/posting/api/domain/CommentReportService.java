@@ -33,4 +33,13 @@ public class CommentReportService {
             commentRepository.save(comment);
         }
     }
+
+    public void cancel(Long commentId, Long userId) {
+
+        CommentReport report = commentReportRepository
+                .findByCommentIdAndUserId(commentId, userId)
+                .orElseThrow(() -> new IllegalArgumentException("신고 내역이 존재하지 않습니다."));
+
+        commentReportRepository.delete(report);
+    }
 }

@@ -23,4 +23,14 @@ public class CommentReportController {
         commentReportService.report(commentId, request.userId(), request.type(), request.reason());
         return ApiResult.success();
     }
+
+    @DeleteMapping("/posts/{postId}/comments/{commentId}/reports")
+    @Operation(summary = "댓글 신고 취소 API입니다.")
+    public ApiResult<?> cancelReport(
+            @PathVariable Long commentId,
+            @RequestParam Long userId
+    ) {
+        commentReportService.cancel(commentId, userId);
+        return ApiResult.success();
+    }
 }
