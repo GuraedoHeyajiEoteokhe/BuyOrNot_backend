@@ -16,7 +16,6 @@ public class Post extends BaseEntity {
     @Column(nullable = false)
     private Long stockId;
 
-    @Column(nullable = false)
     private Long userId;
 
     @Column(nullable = false)
@@ -37,6 +36,9 @@ public class Post extends BaseEntity {
 
     @Column(nullable = false)
     private long dislikeCount = 0;
+
+    @Column(nullable = false)
+    private boolean deleted = false;
 
     @Builder
     public Post(Long stockId, Long userId, String userNickname, String title, String content) {
@@ -70,5 +72,9 @@ public class Post extends BaseEntity {
         } else {
             this.dislikeCount--;
         }
+    }
+
+    public void softDelete() {
+        this.deleted = true;
     }
 }
