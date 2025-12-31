@@ -57,7 +57,7 @@ public class Comment extends BaseEntity {
         this.pinned = false;
     }
 
-    public void delete() {
+    public void softDelete() {
         this.deleted = true;
         this.pinned = false;
     }
