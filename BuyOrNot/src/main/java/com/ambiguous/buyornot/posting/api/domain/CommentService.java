@@ -100,7 +100,7 @@ public class CommentService {
             throw new IllegalStateException("댓글 삭제 권한이 없습니다.");
         }
 
-        comment.delete();
+        comment.softDeleteByUser();
     }
 
     public void pinComment(Long commentId, Long userId) {

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(
-        name = "tbl_reaction",
+        name = "tbl_post_reaction",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = {"post_id", "user_id"})
         }

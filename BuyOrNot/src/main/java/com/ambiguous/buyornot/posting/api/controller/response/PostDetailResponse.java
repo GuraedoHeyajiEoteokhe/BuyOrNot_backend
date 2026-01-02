@@ -17,13 +17,16 @@ public record PostDetailResponse(
         LocalDateTime createdAt
 ) {
     public static PostDetailResponse from(Post post) {
+        String userNickname = post.getUserId() == null ? "(알 수 없음)" : post.getUserNickname();
+        String content = post.isDeleted() ? "관리자에 의해 재제된 글입니다." : post.getContent();
+
         return new PostDetailResponse(
                 post.getId(),
                 post.getStockId(),
                 post.getUserId(),
-                post.getUserNickname(),
+                userNickname,
                 post.getTitle(),
-                post.getContent(),
+                content,
                 post.getViewCount(),
                 post.getLikeCount(),
                 post.getDislikeCount(),

@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/comments")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class CommentController {
 
     private final CommentService commentService;
 
-    @PostMapping("/posts/{postId}")
+    @PostMapping("/posts/{postId}/comments")
     @Operation(summary = "댓글/대댓글 작성 API입니다.")
     public ApiResult<?> createComment(
             @PathVariable Long postId,
@@ -28,7 +28,7 @@ public class CommentController {
         return ApiResult.success();
     }
 
-    @GetMapping("/posts/{postId}")
+    @GetMapping("/posts/{postId}/comments")
     @Operation(summary = "게시글 댓글 목록 조회 API입니다.")
     public ApiResult<List<CommentResponse>> getComments(
             @PathVariable Long postId
@@ -36,7 +36,7 @@ public class CommentController {
         return ApiResult.success(commentService.getCommentsByPostId(postId));
     }
 
-    @PutMapping("/{commentId}")
+    @PutMapping("/comments/{commentId}")
     @Operation(summary = "댓글 수정 API입니다.")
     public ApiResult<?> updateComment(
             @PathVariable Long commentId,
@@ -46,7 +46,7 @@ public class CommentController {
         return ApiResult.success();
     }
 
-    @DeleteMapping("/{commentId}")
+    @DeleteMapping("/comments/{commentId}")
     @Operation(summary = "댓글 삭제 API입니다.")
     public ApiResult<?> deleteComment(
             @PathVariable Long commentId,
@@ -56,7 +56,7 @@ public class CommentController {
         return ApiResult.success();
     }
 
-    @PutMapping("/{commentId}/pin")
+    @PutMapping("/comments/{commentId}/pin")
     @Operation(summary = "댓글 고정 API입니다.")
     public ApiResult<?> pinComment(
             @PathVariable Long commentId,
@@ -66,7 +66,7 @@ public class CommentController {
         return ApiResult.success();
     }
 
-    @DeleteMapping("/{commentId}/pin")
+    @DeleteMapping("/comments/{commentId}/pin")
     @Operation(summary = "댓글 고정 해제 API입니다.")
     public ApiResult<?> unpinComment(
             @PathVariable Long commentId,
