@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.List;
+import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
@@ -22,7 +24,7 @@ public class HotPostingRedisStore {
         * ZSET: 값을 넣을 때 점수를 매겨 점수를 기준으로 자동 정렬해줌
         * value = postingId
         * score = 핫 등록 시간*/
-        double score = registeredAt.toEpochSecond(ZoneOffset.UTC);
+        double score = registeredAt.toInstant(ZoneOffset.UTC).toEpochMilli();
 
         // key라는 zset에 postingId(value)를 점수 기준으로 정렬되도록 저장
         redisTemplate.opsForZSet().add(key, postingId.toString(), score);
@@ -56,4 +58,15 @@ public class HotPostingRedisStore {
             redisTemplate.opsForZSet().removeRange(key,0,removeCount - 1);
         }
     }
+
+    public List<Long> getTop30Ids(Long stockId) {
+        String key = AmbiguousKey.hotPostingTop30(stockId);
+
+        // 최신 등록순이면 reverseRange 사용 (score 높은 게 최신)
+        Set<Object> raw = redisTemplate.opsForZSet().reverseRange(key, 0, 29);
+
+        if (raw == null) return List.of();
+        return raw.stream().map(v -> Long.valueOf(v.toString())).toList();
+    }
+
 }
