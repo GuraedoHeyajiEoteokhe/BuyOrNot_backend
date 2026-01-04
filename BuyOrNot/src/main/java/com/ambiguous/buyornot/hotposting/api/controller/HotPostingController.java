@@ -33,5 +33,10 @@ public class HotPostingController {
         return ApiResult.success();
     }
 
+    // 핫포스팅 목록 조회
+    @GetMapping("/lists/{stockId}")
+    public ApiResult<?> getHotPostings(@PathVariable Long stockId) {
+        return ApiResult.success(hotPostingService.getHotPostingTop30(stockId));
+    }
 
 }

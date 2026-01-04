@@ -4,6 +4,7 @@ import com.ambiguous.buyornot.common.support.error.CoreException;
 import com.ambiguous.buyornot.common.support.error.ErrorType;
 import com.ambiguous.buyornot.hotposting.api.controller.redis.HotPostingRedisStore;
 import com.ambiguous.buyornot.hotposting.api.controller.request.HotPostingPassiveRequest;
+import com.ambiguous.buyornot.hotposting.api.controller.response.HotPostingSummaryResponse;
 import com.ambiguous.buyornot.hotposting.api.storage.HotPostingRepository;
 import com.ambiguous.buyornot.posting.api.domain.Post;
 import com.ambiguous.buyornot.posting.storage.PostRepository;
@@ -14,7 +15,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -61,6 +65,7 @@ public class HotPostingService {
         try {
             hotPostingRedisStore.add(postId, stockId, registeredAt);
             hotPosting.markRedisSynced(registeredAt);
+            hotPostingRepository.save(hotPosting);
         } catch (Exception e) {
             throw new CoreException(ErrorType.HOTPOSTING_REDIS_SYNC_FAILED);
         }
@@ -115,6 +120,7 @@ public class HotPostingService {
         try {
             hotPostingRedisStore.add(postId, stockId, registeredAt);
             hotPosting.markRedisSynced(registeredAt);
+            hotPostingRepository.save(hotPosting);
         } catch (Exception e) {
             // 자동 등록은 실패해도 다음 작업 계속
             // redisSynced는 기본 false니까 그대로 둠
@@ -141,13 +147,10 @@ public class HotPostingService {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime oneHourAgo = now.minusHours(1);
 
-        List<Post> recentPosts = postRepository.findByCreatedAtAfter(oneHourAgo);
+        List<Post> candidates = postRepository.findHotCandidates(oneHourAgo, 10L);
 
-        for (Post p : recentPosts) {
-            int like = postRepository.findLikeCount(p.getId());
-            if (like >= 10) {
-                registerFromPost(p); // 네가 이미 만든 메서드 재사용
-            }
+        for (Post p : candidates) {
+            registerFromPost(p);
         }
     }
 
@@ -163,5 +166,39 @@ public class HotPostingService {
             hotPosting.markRedisUnsynced();
         }
     }
+
+    @Transactional(readOnly = true)
+    public List<HotPostingSummaryResponse> getHotPostingTop30(Long stockId) {
+
+        // 1) Redis에서 Top30 postingId 가져오기
+        List<Long> ids = hotPostingRedisStore.getTop30Ids(stockId);
+        if (ids.isEmpty()) return List.of();
+
+        // 2) DB에서 Post들 한 번에 조회
+        List<Post> posts = postRepository.findByIdIn(ids);
+
+        // 3) Redis 순서대로 정렬하기 위한 인덱스 맵
+        Map<Long, Integer> order = new HashMap<>();
+        for (int i = 0; i < ids.size(); i++) {
+            order.put(ids.get(i), i);
+        }
+
+        // 4) 정렬 + DTO 매핑
+        return posts.stream()
+                .sorted(Comparator.comparingInt(p -> order.getOrDefault(p.getId(), Integer.MAX_VALUE)))
+                .map(p -> new HotPostingSummaryResponse(
+                        p.getId(),
+                        p.getStockId(),
+                        p.getUserId(),
+                        p.getUserNickname(),
+                        p.getTitle(),
+                        p.getViewCount(),
+                        p.getLikeCount(),
+                        p.getDislikeCount(),
+                        p.getCreatedAt()
+                ))
+                .toList();
+    }
+
 
 }
