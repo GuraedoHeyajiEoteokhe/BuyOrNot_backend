@@ -1,12 +1,7 @@
 package com.ambiguous.buyornot.posting.api.domain;
 
 import com.ambiguous.buyornot.common.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.EnumType;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,15 +10,15 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(
-        name = "tbl_post_report",
+        name = "tbl_comment_report",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"post_id", "user_id"})
+                @UniqueConstraint(columnNames = {"comment_id", "user_id"})
         }
 )
-public class PostReport extends BaseEntity {
+public class CommentReport extends BaseEntity {
 
     @Column(nullable = false)
-    private Long postId;
+    private Long commentId;
 
     @Column(nullable = false)
     private Long userId;
@@ -35,8 +30,8 @@ public class PostReport extends BaseEntity {
     @Column(length = 500)
     private String reason;
 
-    public PostReport(Long postId, Long userId, ReportType type, String reason) {
-        this.postId = postId;
+    public CommentReport(Long commentId, Long userId, ReportType type, String reason) {
+        this.commentId = commentId;
         this.userId = userId;
         this.type = type;
         this.reason = reason;
