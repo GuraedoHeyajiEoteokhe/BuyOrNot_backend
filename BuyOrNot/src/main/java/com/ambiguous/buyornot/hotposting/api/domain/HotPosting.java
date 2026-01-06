@@ -18,7 +18,7 @@ public class HotPosting extends BaseEntity {
     @Column(name = "posting_id", nullable = false, unique = true)
     private Long postingId; // 게시글 아이디 - 게시글 테이블
 
-    @Column(name = "stock_id", nullable = false, length = 20)
+    @Column(name = "stock_id", nullable = false)
     private Long stockId;  // 종목 종류
 
     @Column(name = "write_at", nullable = false)
