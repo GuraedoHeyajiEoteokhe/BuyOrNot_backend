@@ -20,11 +20,11 @@ public class BestPosting extends BaseEntity {
     private Long postingId; // 게시글 아이디
 
     @Column(name = "stock_id", nullable = false)
-    private Long stockId;  // 종목 심볼
+    private Long stock_id;  // 종목 심볼
 
     @Builder
     public BestPosting(Long postingId, Long stockId) {
         this.postingId = postingId;
-        this.stockId = stockId;
+        this.stock_id = stockId;
     }
 }
